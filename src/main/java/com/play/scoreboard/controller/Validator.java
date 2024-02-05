@@ -1,5 +1,7 @@
 package com.play.scoreboard.controller;
 
+import com.play.scoreboard.models.MatchScoreModel;
+
 public class Validator {
 
     public static void validNames(String name1, String name2) {
@@ -9,6 +11,13 @@ public class Validator {
         }
         if (name1.length() == 0 | name2.length() == 0) {
             throw new RuntimeException("Отсутсвует игрок");
+        }
+    }
+
+    public static void validIdForMatch(Long idWin, MatchScoreModel match) {
+        if(idWin != match.getPlayer1().getId() &&
+                idWin != match.getPlayer1().getId()) {
+            throw new RuntimeException("Неверный ID игрока для текущего матча");
         }
     }
 }

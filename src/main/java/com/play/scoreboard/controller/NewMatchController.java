@@ -37,10 +37,9 @@ public class NewMatchController extends HttpServlet {
         var player1 = regServise.add(name1);
         var player2 = regServise.add(name2);
 
-        var match = new MatchScoreModel(player1, player2);
-        var uuid = new OngoingMatchesServise()
-                .startNewMatch(match);
+        var match = new OngoingMatchesServise()
+                .startNewMatch(player1, player2);
 
-        resp.sendRedirect("/match-score?uuid=" + uuid);
+        resp.sendRedirect("/match-score?uuid=" + match.getUUID());
     }
 }

@@ -3,7 +3,6 @@ package com.play.scoreboard.controller;
 import com.play.scoreboard.models.Player;
 import com.play.scoreboard.servise.MatchScoreCalculationServise;
 import com.play.scoreboard.servise.OngoingMatchesServise;
-import com.play.scoreboard.servise.Score;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,7 +21,7 @@ public class MatchScoreController extends HttpServlet {
         String uuid = req.getParameter("uuid");
         var match = ongMatServ.get(uuid);
 
-        Score score = match.getScore();
+        var score = match.getScore();
         Player player1 = match.getPlayer1();
         Player player2 = match.getPlayer2();
         req.setAttribute("name1", player1.getName());
@@ -36,7 +35,7 @@ public class MatchScoreController extends HttpServlet {
         req.setAttribute("points1", score.getPoints(player1));
         req.setAttribute("points2", score.getPoints(player2));
         req.setAttribute("tie-breake", score.getTieBreak());
-        req.setAttribute("equally", score.getEquallPoints());
+        req.setAttribute("equally", score.getEqually());
 
 
         getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
@@ -44,6 +43,8 @@ public class MatchScoreController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        MatchScoreCalculationServise scoreServ = new MatchScoreCalculationServise();
+
         String idString = req.getParameter("idwinner");
         Long idWin = Long.parseLong(
                 idString
@@ -51,14 +52,15 @@ public class MatchScoreController extends HttpServlet {
         );
 
         var match = ongMatServ.get(req.getParameter("uuid"));
+        Validator.validIdForMatch(idWin, match);
+        Player winner = match.getPlayerById(idWin);
+        var score = match.getScore();
 
-        MatchScoreCalculationServise scoreServ = new MatchScoreCalculationServise(match);
-
-        if (scoreServ.calculate(idWin)) {
+        if (scoreServ.calculate(score, winner)) {
             getServletContext().getRequestDispatcher("/final-score.jsp").forward(req, resp);
         }
 
-        Score score = match.getScore();
+
         Player player1 = match.getPlayer1();
         Player player2 = match.getPlayer2();
         req.setAttribute("name1", player1.getName());
@@ -72,7 +74,7 @@ public class MatchScoreController extends HttpServlet {
         req.setAttribute("points1", score.getPoints(player1));
         req.setAttribute("points2", score.getPoints(player2));
         req.setAttribute("tie-breake", score.getTieBreak());
-        req.setAttribute("equally", score.getEquallPoints());
+        req.setAttribute("equally", score.getEqually());
 
         getServletContext()
                 .getRequestDispatcher("/match-score.jsp")
