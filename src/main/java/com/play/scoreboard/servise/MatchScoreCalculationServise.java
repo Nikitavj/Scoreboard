@@ -5,7 +5,6 @@ import com.play.scoreboard.models.Player;
 public class MatchScoreCalculationServise {
 
     public boolean calculate(ScoreGame score, Player winner) {
-        score.addPoint(winner);
         checkPoints(score, winner);
         checkGame(score, winner);
         return checkSet(score, winner);

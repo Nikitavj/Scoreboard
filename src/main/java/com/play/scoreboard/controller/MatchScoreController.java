@@ -55,8 +55,10 @@ public class MatchScoreController extends HttpServlet {
         Validator.validIdForMatch(idWin, match);
         Player winner = match.getPlayerById(idWin);
         var score = match.getScore();
+        score.addPoint(winner);
 
         if (scoreServ.calculate(score, winner)) {
+            match.setWinner(winner);
             getServletContext().getRequestDispatcher("/final-score.jsp").forward(req, resp);
         }
 
