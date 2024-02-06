@@ -1,6 +1,8 @@
 package com.play.scoreboard.hibernateDAO;
 
 import com.play.scoreboard.models.Match;
+import com.play.scoreboard.models.Player;
+import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -26,6 +28,19 @@ public class MatchDao extends BaseDao<Match> implements MatchHibernateDAO {
             Match match = session.get(Match.class, id);
             session.getTransaction().commit();
             return match;
+        }
+    }
+
+    public List<Match> findByNamePlayer(String name) {
+        try(Session session = factory.openSession()) {
+            session.getTransaction().begin();
+
+            Query query = session.createQuery("from Match where player1.name =: namePlayer", Match.class);
+            query.setParameter("namePlayer", name);
+            List<Match> matchesOfPlayer = query.getResultList();
+            session.getTransaction().commit();
+
+            return matchesOfPlayer;
         }
     }
 
