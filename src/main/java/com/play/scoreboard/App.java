@@ -25,8 +25,6 @@ public class App {
         long id1 = matchDao.save(match);
         System.out.println("saved id match = " + id1);
 
-
-
         Transaction transaction;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.getTransaction();

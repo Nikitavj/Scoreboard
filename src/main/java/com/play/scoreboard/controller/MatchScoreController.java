@@ -1,6 +1,11 @@
 package com.play.scoreboard.controller;
 
+import com.play.scoreboard.HibernateUtil;
+import com.play.scoreboard.hibernateDAO.MatchDao;
+import com.play.scoreboard.hibernateDAO.PlayerDAO;
+import com.play.scoreboard.models.Match;
 import com.play.scoreboard.models.Player;
+import com.play.scoreboard.servise.FinishedMatchesPersistenceService;
 import com.play.scoreboard.servise.MatchScoreCalculationServise;
 import com.play.scoreboard.servise.OngoingMatchesServise;
 import jakarta.servlet.ServletException;
@@ -44,6 +49,7 @@ public class MatchScoreController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         MatchScoreCalculationServise scoreServ = new MatchScoreCalculationServise();
+        FinishedMatchesPersistenceService finishServ = new FinishedMatchesPersistenceService();
 
         String idString = req.getParameter("idwinner");
         Long idWin = Long.parseLong(
@@ -59,6 +65,12 @@ public class MatchScoreController extends HttpServlet {
 
         if (scoreServ.calculate(score, winner)) {
             match.setWinner(winner);
+            long id = finishServ.save(match);
+
+            MatchDao dao = new MatchDao(HibernateUtil.getSessionFactory());
+            Match savingMatch = dao.findById(id);
+            System.out.println(savingMatch);
+
             getServletContext().getRequestDispatcher("/final-score.jsp").forward(req, resp);
         }
 

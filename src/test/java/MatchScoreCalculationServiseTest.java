@@ -30,7 +30,6 @@ public class MatchScoreCalculationServiseTest {
         System.out.println("init");
     }
 
-
     @ParameterizedTest(name = "Test calculate points in game{index}")
     @CsvSource(value = {
             "4, 0",

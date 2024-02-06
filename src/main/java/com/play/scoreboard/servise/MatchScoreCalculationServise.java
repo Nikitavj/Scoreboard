@@ -94,6 +94,7 @@ public class MatchScoreCalculationServise {
         if (sets1 == 2 || sets2 == 2) {
             return true;
         }
+
         return false;
     }
 }

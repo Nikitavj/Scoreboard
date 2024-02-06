@@ -22,7 +22,7 @@ public class MatchDao extends BaseDao<Match> implements MatchHibernateDAO {
     @Override
     public Match findById(long id) {
         try(Session session = factory.openSession()) {
-            session.getTransaction();
+            session.getTransaction().begin();
             Match match = session.get(Match.class, id);
             session.getTransaction().commit();
             return match;

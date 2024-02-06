@@ -16,7 +16,7 @@ public class Validator {
 
     public static void validIdForMatch(Long idWin, MatchScoreModel match) {
         if(idWin != match.getPlayer1().getId() &&
-                idWin != match.getPlayer1().getId()) {
+                idWin != match.getPlayer2().getId()) {
             throw new RuntimeException("Неверный ID игрока для текущего матча");
         }
     }
