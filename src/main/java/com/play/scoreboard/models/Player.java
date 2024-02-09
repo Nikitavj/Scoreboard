@@ -3,6 +3,7 @@ package com.play.scoreboard.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 

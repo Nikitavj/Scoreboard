@@ -1,9 +1,7 @@
 package com.play.scoreboard.controller;
 
-import com.play.scoreboard.models.Match;
-import com.play.scoreboard.models.MatchScoreModel;
 import com.play.scoreboard.servise.OngoingMatchesServise;
-import com.play.scoreboard.servise.PlayerRegServise;
+import com.play.scoreboard.servise.PlayerServise;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,13 +31,13 @@ public class NewMatchController extends HttpServlet {
         Validator.validNames(name1, name2);
 
         //проверить существование игроков в таблице и создать если не существуют
-        var regServise = new PlayerRegServise();
+        var regServise = new PlayerServise();
         var player1 = regServise.add(name1);
         var player2 = regServise.add(name2);
 
         var match = new OngoingMatchesServise()
                 .startNewMatch(player1, player2);
 
-        resp.sendRedirect("/match-score?uuid=" + match.getUUID());
+        resp.sendRedirect("/match-score?uuid=" + match.getUuid());
     }
 }

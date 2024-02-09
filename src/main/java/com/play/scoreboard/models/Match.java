@@ -3,6 +3,8 @@ package com.play.scoreboard.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -16,19 +18,19 @@ public class Match extends EntityHibernate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "player1")
-    @ToString.Exclude
+    //@ToString.Exclude
     private Player player1;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "player2")
-    @ToString.Exclude
+    //@ToString.Exclude
     private Player player2;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "winner")
-    @ToString.Exclude
+    //@ToString.Exclude
     private Player winner;
 
     public Match(Player player1, Player player2) {

@@ -8,9 +8,9 @@ import java.util.List;
 
 public class SearchComplitedMatchesServise {
 
-    public List<Match> searchByPlayer(String name) {
-        MatchDao dao = new MatchDao(HibernateUtil.getSessionFactory());
-        return dao.findByNamePlayer(name);
-    }
+//    public List<Match> searchByPlayer(String name) {
+//        MatchDao dao = new MatchDao(HibernateUtil.getSessionFactory());
+//        return dao.findByNamePlayer(name);
+//    }
 
 }

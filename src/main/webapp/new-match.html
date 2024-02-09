@@ -5,9 +5,16 @@
     <title>Title</title>
 </head>
 <body>
+<form action="matches">
+    <input type="submit" value="Matches">
+</form>
+<br>
+
 <form action="new-match" method="POST">
-    Имя игрока 1: <input name="name1"/>
-    Имя игрока 2: <input name="name2"/>
+    Имя игрока 1:<br>
+    <input name="name1" required/><br>
+    Имя игрока 2:<br>
+    <input name="name2" required/><br>
     <input type="submit" value="Начать"/>
 </form>
 </body>

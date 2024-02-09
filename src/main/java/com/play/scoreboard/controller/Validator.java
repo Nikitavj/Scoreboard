@@ -20,4 +20,10 @@ public class Validator {
             throw new RuntimeException("Неверный ID игрока для текущего матча");
         }
     }
+
+    public static void validPage(int page) {
+        if(page < 1) {
+            throw new RuntimeException("Номер страницы должен быть больше 0");
+        }
+    }
 }

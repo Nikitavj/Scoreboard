@@ -43,6 +43,7 @@ public class MatchScoreController extends HttpServlet {
         req.setAttribute("equally", score.getEqually());
 
 
+
         getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
     }
 
@@ -67,10 +68,7 @@ public class MatchScoreController extends HttpServlet {
             match.setWinner(winner);
             long id = finishServ.save(match);
 
-            MatchDao dao = new MatchDao(HibernateUtil.getSessionFactory());
-            Match savingMatch = dao.findById(id);
-            System.out.println(savingMatch);
-
+            req.setAttribute("match", match);
             getServletContext().getRequestDispatcher("/final-score.jsp").forward(req, resp);
         }
 

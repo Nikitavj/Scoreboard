@@ -4,9 +4,10 @@ import com.play.scoreboard.HibernateUtil;
 import com.play.scoreboard.hibernateDAO.PlayerDAO;
 import com.play.scoreboard.models.Player;
 
+import java.util.List;
 import java.util.Optional;
 
-public class PlayerRegServise {
+public class PlayerServise {
     private PlayerDAO dao = new PlayerDAO(HibernateUtil.getSessionFactory());
 
     public Player add(String name) {
@@ -20,4 +21,7 @@ public class PlayerRegServise {
             return player;
         }
     }
+
+    public List<String>
+
 }
