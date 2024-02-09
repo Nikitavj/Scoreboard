@@ -3,6 +3,7 @@ package com.play.scoreboard.controller;
 import com.play.scoreboard.HibernateUtil;
 import com.play.scoreboard.hibernateDAO.MatchDao;
 import com.play.scoreboard.models.Match;
+import com.play.scoreboard.servise.PlayerServise;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ public class MatchesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var playerServise = new PlayerServise();
         MatchDao dao = new MatchDao(HibernateUtil.getSessionFactory());
         String name = req.getParameter("filter_by_player_name");
         String pageString = req.getParameter("page");
@@ -50,6 +52,7 @@ public class MatchesController extends HttpServlet {
             pages = (int)Math.ceil(dao.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
         }
 
+        List<String> names = playerServise.getNames();
 
         req.setAttribute("names", names);
         req.setAttribute("name", name);

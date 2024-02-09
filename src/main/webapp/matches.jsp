@@ -22,11 +22,19 @@
 </a>
 <br><br>
 
+
+
 Поиск матчей по имени Игрока
 <form action="matches" method="get">
-    <input name="filter_by_player_name" type="text" placeholder="${name}" required>
+    <input name="filter_by_player_name" type="text" list="namesPlayers" placeholder="${name}" required>
     <button>Найти</button>
 </form>
+
+<datalist id="namesPlayers">
+    <c:forEach items="${names}" var="namePlayer">
+        <option value="${namePlayer}">${namePlayer}</option>
+    </c:forEach>
+</datalist>
 
 <a href="matches">
     <button>All Matches</button>

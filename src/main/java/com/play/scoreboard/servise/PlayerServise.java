@@ -22,6 +22,9 @@ public class PlayerServise {
         }
     }
 
-    public List<String>
+    public List<String> getNames() {
+
+        return dao.getAllNames();
+    }
 
 }
