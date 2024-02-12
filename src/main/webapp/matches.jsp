@@ -23,7 +23,6 @@
 <br><br>
 
 
-
 Поиск матчей по имени Игрока
 <form action="matches" method="get">
     <input name="filter_by_player_name" type="text" list="namesPlayers" placeholder="${name}" required>
@@ -62,10 +61,14 @@
 <c:if test="${currentPage > 1}">
     <td>
         <c:if test="${name != null}">
-            <a href="matches?page=${currentPage - 1}&filter_by_player_name=${name}">Back</a>
+            <a href="matches?page=${currentPage - 1}&filter_by_player_name=${name}">
+                <button>Back</button>
+            </a>
         </c:if>
         <c:if test="${name == null}">
-            <a href="matches?page=${currentPage - 1}">Back</a>
+            <a href="matches?page=${currentPage - 1}">
+                <button>Back</button>
+            </a>
         </c:if>
     </td>
 </c:if>
@@ -75,13 +78,16 @@
 <c:if test="${currentPage < pages}">
     <td>
         <c:if test="${name != null}">
-            <a href="matches?page=${currentPage + 1}&filter_by_player_name=${name}">Next</a>
+            <a href="matches?page=${currentPage + 1}&filter_by_player_name=${name}">
+                <button>Next</button>
+            </a>
         </c:if>
         <c:if test="${name == null}">
-            <a href="matches?page=${currentPage + 1}">Next</a>
+            <a href="matches?page=${currentPage + 1}">
+                <button>Next</button>
+            </a>
         </c:if>
     </td>
 </c:if>
-
 </body>
 </html>

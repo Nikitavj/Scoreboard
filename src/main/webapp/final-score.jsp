@@ -12,12 +12,14 @@
 </head>
 <body>
 
-<form action="new-match">
-    <input type="submit" value="New Match">
-</form>
-<form action="matches">
-    <input type="submit" value="Matches">
-</form>
+<a href="new-match">
+    <button>New Match</button>
+</a>
+<br>
+
+<a href="matches">
+    <button>Matches</button>
+</a>
 <br>
 
 <table border="1">

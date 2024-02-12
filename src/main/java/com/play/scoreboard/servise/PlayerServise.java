@@ -26,5 +26,4 @@ public class PlayerServise {
 
         return dao.getAllNames();
     }
-
 }

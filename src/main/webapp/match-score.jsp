@@ -14,6 +14,11 @@
 </head>
 <body>
 
+<a href="index.html">
+    <button>Interrupt</button>
+</a>
+<br>
+
 <table border="1">
     <tr>
         <th>Player1</th>
@@ -42,22 +47,26 @@
     </tr>
     <tr>
         <td></td>
-        <td><%=(boolean)request.getAttribute("tie-breake") ? "Tie-break": ""%></td>
-        <td><%=(boolean)request.getAttribute("equally") ? "РОВНО": ""%></td>
+        <td><%=(boolean) request.getAttribute("tie-breake") ? "Tie-break" : ""%>
+        </td>
+        <td><%=(boolean) request.getAttribute("equally") ? "РОВНО" : ""%>
+        </td>
         <td></td>
     </tr>
     <tr>
         <td>
             <form action${path1} method="POST">
-                <input type="hidden" name="idwinner" value="${id1}" />
+                <input type="hidden" name="idwinner" value="${id1}"/>
                 <input type="submit" value="POINT"/>
             </form>
         </td>
+
         <td></td>
+
         <td>
             <form action${path2} method="POST">
-                <input type="hidden" name="idwinner" value="${id2}" />
-            <input type="submit" value="POINT"/>
+                <input type="hidden" name="idwinner" value="${id2}"/>
+                <input type="submit" value="POINT"/>
             </form>
         </td>
     </tr>

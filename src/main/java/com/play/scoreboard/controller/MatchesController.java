@@ -4,6 +4,7 @@ import com.play.scoreboard.HibernateUtil;
 import com.play.scoreboard.hibernateDAO.MatchDao;
 import com.play.scoreboard.models.Match;
 import com.play.scoreboard.servise.PlayerServise;
+import com.play.scoreboard.servise.SearchServiceForCompletedMatches;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,8 +21,9 @@ public class MatchesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var playerServise = new PlayerServise();
-        MatchDao dao = new MatchDao(HibernateUtil.getSessionFactory());
+        PlayerServise playerServise = new PlayerServise();
+        SearchServiceForCompletedMatches complMatches = new SearchServiceForCompletedMatches();
+
         String name = req.getParameter("filter_by_player_name");
         String pageString = req.getParameter("page");
 
@@ -31,25 +33,29 @@ public class MatchesController extends HttpServlet {
 
         //все матчи, первая страница
         if (pageString == null && name == null) {
-            matches = dao.findByPage(DEFAULT_PAGE, SIZE_ROWS_PAGE);
-            pages = (int)Math.ceil(dao.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
+            matches = complMatches.getMatchesByPage(DEFAULT_PAGE, SIZE_ROWS_PAGE);
+            pages = (int)Math.ceil(
+                    complMatches.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
         }
         //конкретная страница с матчами
         if (pageString != null && name == null) {
             page = Integer.parseInt(pageString);
-            matches = dao.findByPage(page, SIZE_ROWS_PAGE);
-            pages = (int)Math.ceil(dao.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
+            matches = complMatches.getMatchesByPage(page, SIZE_ROWS_PAGE);
+            pages = (int)Math.ceil(
+                    complMatches.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
         }
         //поиск только по имени, первая страница
         if (pageString == null && name != null) {
-            matches = dao.findByNamePlayer(name, DEFAULT_PAGE, SIZE_ROWS_PAGE);
-            pages = (int)Math.ceil(dao.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
+            matches =complMatches.getMatchesForName(name, DEFAULT_PAGE, SIZE_ROWS_PAGE);
+            pages = (int)Math.ceil(
+                    complMatches.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
         }
         //поиск по имени и по странице
         if (pageString != null && name != null) {
             page = Integer.parseInt(pageString);
-            matches = dao.findByNamePlayer(name, page, SIZE_ROWS_PAGE);
-            pages = (int)Math.ceil(dao.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
+            matches = complMatches.getMatchesForName(name, page, SIZE_ROWS_PAGE);
+            pages = (int)Math.ceil(
+                    complMatches.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
         }
 
         List<String> names = playerServise.getNames();
