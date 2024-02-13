@@ -1,14 +1,22 @@
 package com.play.scoreboard.servise;
 
 import com.play.scoreboard.models.Player;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@NoArgsConstructor
+@Getter
+@Setter
 public class ScoreGame {
     private Player player1;
     private Player player2;
     private Map<Player, ScorePlayer> score = new HashMap<>();
+    private int setCurrent = 1;
     private boolean equally;
     private boolean tieBreak;
 
@@ -17,14 +25,6 @@ public class ScoreGame {
         this.player2 = player2;
         score.put(player1, new ScorePlayer());
         score.put(player2, new ScorePlayer());
-    }
-
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
     }
 
     public int getPoints(Player player) {
@@ -36,7 +36,7 @@ public class ScoreGame {
     }
 
     public void clearPoints() {
-        score.values().stream().forEach(p -> p.clearPoints());
+        score.values().stream().forEach(s -> s.clearPoints());
     }
 
     public int getGames(Player player) {
@@ -45,22 +45,29 @@ public class ScoreGame {
 
     public void addGame(Player player) {
         score.get(player).addGame();
-    }
-
-    public void clearGames() {
-        score.values().stream().forEach(g -> g.clearGames());
+        clearPoints();
     }
 
     public int getSets(Player player) {
         return score.get(player).getSets();
     }
 
+    public void clearGames() {
+        score.values().stream().forEach(s -> s.clearGames());
+    }
     public void addSet(Player player) {
         score.get(player).addSet();
+        addPrevSet();
+        clearGames();
+        setCurrent++;
     }
 
-    public void clearSets(Player player) {
-        score.get(player).clearSets();
+    public int getPrevSets(Player player, long number) {
+        return score.get(player).getPreviousSets().get((int)number);
+    }
+
+    private void addPrevSet() {
+        score.values().stream().forEach(s -> s.addPrevSet(setCurrent));
     }
 
     public void startEqually() {

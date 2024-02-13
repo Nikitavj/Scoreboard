@@ -24,14 +24,31 @@
 
 <table border="1">
     <tr>
-        <td>Player1</td>
-        <td>Player1</td>
-        <td>Winner</td>
+        <c:if test="${score.getTieBreak()}">Tie-break</c:if>
+        <c:if test="${score.getEqually()}">Equally</c:if>
+    </tr>
+
+    <tr>
+        <th>PREVIOUS</th>
+        <th>PREVIOUS</th>
+        <th>PREVIOUS</th>
+        <th>PLAYER</th>
+        <th>SETS</th>
+    </tr>
+
+    <tr>
+        <th>${score.getPrevSets(player1, 1)}</th>
+        <th>${score.getPrevSets(player1, 2)}</th>
+        <th>${score.getPrevSets(player1, 3)}</th>
+        <th>${player1.getName()}</th>
+        <th>${score.getSets(player1)}</th>
     </tr>
     <tr>
-        <td>${match.getPlayer1().getName()}</td>
-        <td>${match.getPlayer2().getName()}</td>
-        <td>${match.getWinner().getName()}</td>
+        <th>${score.getPrevSets(player2, 1)}</th>
+        <th>${score.getPrevSets(player2, 2)}</th>
+        <th>${score.getPrevSets(player2, 3)}</th>
+        <th>${player2.getName()}</th>
+        <th>${score.getSets(player2)}</th>
     </tr>
 </table>
 

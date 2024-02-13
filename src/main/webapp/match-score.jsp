@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--  User: Dell N
   Date: 28.01.2024
   Time: 9:02
@@ -6,6 +7,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = "match-score?uuid=" + request.getParameter("uuid");
+    request.setAttribute("path", path);
 %>
 
 <html>
@@ -20,55 +22,45 @@
 <br>
 
 <table border="1">
-    <tr>
-        <th>Player1</th>
-        <th></th>
-        <th>Player2</th>
+        <tr>
+        <th>PREVIOUS</th>
+        <th>PREVIOUS</th>
+        <th>PREVIOUS</th>
+        <th>PLAYER</th>
+        <th>SETS</th>
+        <th>GAME</th>
+        <th>POINTS</th>
     </tr>
+
     <tr>
-        <td>${name1}</td>
-        <td>Name</td>
-        <td>${name2}</td>
-    </tr>
-    <tr>
-        <td>${sets1}</td>
-        <td>Sets</td>
-        <td>${sets2}</td>
-    </tr>
-    <tr>
-        <td>${games1}</td>
-        <td>Games</td>
-        <td>${games2}</td>
-    </tr>
-    <tr>
-        <td>${points1}</td>
-        <td>Points</td>
-        <td>${points2}</td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><%=(boolean) request.getAttribute("tie-breake") ? "Tie-break" : ""%>
-        </td>
-        <td><%=(boolean) request.getAttribute("equally") ? "РОВНО" : ""%>
-        </td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>
-            <form action${path1} method="POST">
-                <input type="hidden" name="idwinner" value="${id1}"/>
+        <th>${score.getPrevSets(player1, 1)}</th>
+        <th>${score.getPrevSets(player1, 2)}</th>
+        <th>${score.getPrevSets(player1, 3)}</th>
+        <th>${player1.getName()}</th>
+        <th>${score.getSets(player1)}</th>
+        <th>${score.getGames(player1)}</th>
+        <th>${score.getPoints(player1)}</th>
+        <th>
+            <form action="${path}" method="POST">
+                <input type="hidden" name="idwinner" value="${player1.getId()}"/>
                 <input type="submit" value="POINT"/>
             </form>
-        </td>
-
-        <td></td>
-
-        <td>
-            <form action${path2} method="POST">
-                <input type="hidden" name="idwinner" value="${id2}"/>
+        </th>
+    </tr>
+    <tr>
+        <th>${score.getPrevSets(player2, 1)}</th>
+        <th>${score.getPrevSets(player2, 2)}</th>
+        <th>${score.getPrevSets(player2, 3)}</th>
+        <th>${player2.getName()}</th>
+        <th>${score.getSets(player2)}</th>
+        <th>${score.getGames(player2)}</th>
+        <th>${score.getPoints(player2)}</th>
+        <th>
+            <form action="${path}" method="POST">
+                <input type="hidden" name="idwinner" value="${player2.getId()}"/>
                 <input type="submit" value="POINT"/>
             </form>
-        </td>
+        </th>
     </tr>
 </table>
 

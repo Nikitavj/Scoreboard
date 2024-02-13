@@ -17,14 +17,12 @@ public class MatchScoreCalculationServise {
         if (score.getTieBreak()) {
             if ((points1 == 7 && points2 <= 5)
                     || (points2 == 7 && points1 <= 5)) {
-                score.clearPoints();
                 score.addGame(winner);
                 return;
             }
 
             if ((points1 >= 6 && points2 >= 6)
                     && (Math.abs(points1 - points2) == 2)) {
-                score.clearPoints();
                 score.addGame(winner);
                 return;
             }
@@ -36,13 +34,11 @@ public class MatchScoreCalculationServise {
             if ((points1 == 4 && points2 <= 2)
                     || (points2 == 4 && points1 <= 2)) {
                 score.addGame(winner);
-                score.clearPoints();
                 score.clearEqually();
                 return;
             }
 
             if (points1 == 3 && points2 == 3) {
-                score.clearPoints();
                 score.startEqually();
                 return;
             }
@@ -51,7 +47,6 @@ public class MatchScoreCalculationServise {
         if (score.getEqually()) {
             if (Math.abs(points1 - points2) == 2) {
                 score.addGame(winner);
-                score.clearPoints();
                 score.clearEqually();
             }
         }
@@ -67,7 +62,6 @@ public class MatchScoreCalculationServise {
                     || (games1 == 7 && games2 == 5)
                     || (games2 == 7 && games1 == 5)) {
                 score.addSet(winner);
-                score.clearGames();
                 return;
             }
 
@@ -80,7 +74,6 @@ public class MatchScoreCalculationServise {
         if (score.getTieBreak()) {
             if (games1 == 7 || games2 == 7) {
                 score.addSet(winner);
-                score.clearGames();
                 score.clearTieBreak();
             }
         }
