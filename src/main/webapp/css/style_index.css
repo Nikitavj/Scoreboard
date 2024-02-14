@@ -1,0 +1,106 @@
+html{
+    height: 72%;
+}
+
+body{
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 60px;
+    color: black;
+    height: 100%;
+}
+
+.header,
+.footer{
+    background-color: #006900;
+}
+
+.container{
+    margin: 0 auto;
+    padding: 15px;
+    max-width: 800px;
+    color: white;
+}
+
+.main{
+    background: url("oblaka.jpg");
+    height: 100%;
+}
+
+.container-main{
+    margin: 0 auto;
+    padding: 15px;
+    max-width: 800px;
+    color: white;
+    height: 100%;
+}
+
+a{
+    text-decoration: none;
+}
+
+.footer{
+    height: 15%;
+}
+
+.nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo-right{
+    text-align: right;
+}
+
+.logo-img{
+    width: 50%;
+}
+
+.headline-btn{
+    padding: 10px;
+    margin-bottom: 10px;
+    color: white;
+    border-radius: 15px;
+    border-bottom-style: groove;
+    border-bottom-width: thin;
+    background: linear-gradient(35deg, red, #009c00);
+}
+
+@media (max-width: 700px) {
+    .main{
+        background: url("oblaka.jpg");
+        height: 120%;
+    }
+    .logo-img{
+        width: 70%;
+    }
+}
+
+@media(max-width: 560px){
+    .logo-img{
+        width: 60%;
+    }
+
+    .nav{
+        font-size: 30px;
+    }
+}
+
+@media(max-width: 360px){
+    .logo-img{
+        width: 60%;
+    }
+
+    .nav{
+        font-size: 20px;
+    }
+}

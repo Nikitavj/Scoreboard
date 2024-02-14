@@ -2,20 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style_index.css">
+    <link rel="stylesheet" href="css/style_new_match.css">
+    <title>New match</title>
 </head>
 <body>
-<form action="matches">
-    <input type="submit" value="Matches">
-</form>
-<br>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a class="logo-left">
+                <img class="logo-img" src="images/ball.png">
+            </a>
+            <div class="text">
+                <h1>New match</h1>
+            </div>
+            <a class="logo-right">
+                <img class="logo-img" src="images/raketka.png">
+            </a>
+        </nav>
+    </div>
+</header>
 
-<form action="new-match" method="POST">
-    Имя игрока 1:<br>
-    <input name="name1" required/><br>
-    Имя игрока 2:<br>
-    <input name="name2" required/><br>
-    <input type="submit" value="Начать"/>
-</form>
+<main class="main">
+    <div class="container-main">
+        <nav class="nav-main">
+            <a class="headline-btn" href="matches">Matches</a>
+        </nav>
+        <div class="form">
+            <form class="form-name" action="new-match" method="POST">
+                <input class="input-name" name="name1" placeholder="Name Player1" required/>
+                <input class="input-name" name="name2" placeholder="Name Player1" required/>
+
+                <input class="headline-btn" type="submit" value="Start"/>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+        </div>
+    </div>
+</footer>
 </body>
 </html>

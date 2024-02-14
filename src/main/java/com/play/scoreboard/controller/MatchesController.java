@@ -24,12 +24,17 @@ public class MatchesController extends HttpServlet {
         PlayerServise playerServise = new PlayerServise();
         SearchServiceForCompletedMatches complMatches = new SearchServiceForCompletedMatches();
 
-        String name = req.getParameter("filter_by_player_name");
         String pageString = req.getParameter("page");
+        String name = req.getParameter("filter_by_player_name");
+        Validator.validName(name);
 
         List<Match> matches = null;
         int pages = 1;
         int page = 1;
+        if (pageString != null) {
+            page = Integer.parseInt(pageString);
+            Validator.validPage(page);
+        }
 
         //все матчи, первая страница
         if (pageString == null && name == null) {
@@ -39,7 +44,6 @@ public class MatchesController extends HttpServlet {
         }
         //конкретная страница с матчами
         if (pageString != null && name == null) {
-            page = Integer.parseInt(pageString);
             matches = complMatches.getMatchesByPage(page, SIZE_ROWS_PAGE);
             pages = (int)Math.ceil(
                     complMatches.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
@@ -52,7 +56,6 @@ public class MatchesController extends HttpServlet {
         }
         //поиск по имени и по странице
         if (pageString != null && name != null) {
-            page = Integer.parseInt(pageString);
             matches = complMatches.getMatchesForName(name, page, SIZE_ROWS_PAGE);
             pages = (int)Math.ceil(
                     complMatches.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);

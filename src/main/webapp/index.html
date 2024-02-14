@@ -2,17 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style_index.css">
     <title>ScoreBoard</title>
 </head>
 <body>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a class="logo-left">
+                <img class="logo-img" src="images/ball.png">
+            </a>
+            <h1>Tennis</h1>
+            <a class="logo-right">
+                <img class="logo-img" src="images/raketka.png">
+            </a>
+        </nav>
+    </div>
+</header>
 
-<form action="new-match">
-    <input type="submit" value="New Match">
-</form>
-<br>
+<main class="main">
+    <div class="container-main">
+        <nav class="nav-main">
+            <a class="headline-btn" href="new-match">New Match</a>
+            <a class="headline-btn" href="matches">Matches</a>
+        </nav>
+    </div>
+</main>
 
-<form action="matches">
-    <input type="submit" value="Matches">
-</form>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+        </div>
+    </div>
+</footer>
 </body>
 </html>

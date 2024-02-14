@@ -17,6 +17,11 @@ public class OngoingMatchesServise {
     }
 
     public MatchScoreModel get(String uuid) {
-        return matches.get(uuid);
+        MatchScoreModel match = matches.get(uuid);
+        if (match == null) {
+            throw new RuntimeException("Матча с текущим uuid не существует");
+        }
+
+        return match;
     }
 }
