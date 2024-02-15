@@ -1,0 +1,125 @@
+body{
+    line-height: 1;
+}
+
+.board{
+    max-width: 100%;
+    background-color: #006900;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 30px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+
+.column{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin: 5px;
+}
+
+
+.wind{
+    display: flex;
+    flex-direction: row;
+}
+
+.win,
+.win-name{
+    background-color: #bfbf01;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.win-name{
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.win-sub {
+    background-color: #d2d200;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.point-sub{
+    font-size: 30px;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 5px;
+    border-bottom-style: groove;
+    border-bottom-width: thin;
+    background: linear-gradient(35deg, red, #009c00);
+}
+
+form {
+    margin-block-end: 0em;
+}
+
+@media (max-width: 1000px) {
+    .board{
+        font-size: 20px;
+    }
+    .point-sub{
+        font-size: 20px;
+    }
+
+    .win-name{
+        width: 150px;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .board{
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .column div:nth-child(2):not(.win){
+        order: -1;
+    }
+
+    .column{
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+    }
+
+    .winds{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .wind{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .win{
+        margin: 3px 5px;
+    }
+
+    .win-name{
+        width: 100px;
+        margin: 5px 3px;
+    }
+
+    .players{
+        display: none;
+    }
+
+    .main{
+        background: url("oblaka.jpg");
+        height: 200%;
+    }
+}
+
+

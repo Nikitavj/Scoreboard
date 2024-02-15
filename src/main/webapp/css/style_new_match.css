@@ -14,6 +14,7 @@
 .form-name{
     padding: 40px 40px 0px;
     background-color: #006900;
+    color: white;
     border-radius: 30px;
     text-align: center;
 }
@@ -25,6 +26,7 @@
     display: block;
     width: 100%;
     background-color: #006900;
+    color: white;
 }
 
 @media (max-width: 560px) {

@@ -5,6 +5,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link type="text/css" rel="stylesheet" href="css/style_index.css"/>
+<link type="text/css" rel="stylesheet" href="css/style_match_score.css"/>
 <%
     String path = "match-score?uuid=" + request.getParameter("uuid");
     request.setAttribute("path", path);
@@ -15,54 +17,100 @@
     <title>ScoreBoard</title>
 </head>
 <body>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a class="logo-left">
+                <img class="logo-img" src="images/ball.png">
+            </a>
+            <h1>Match score</h1>
+            <a class="logo-right">
+                <img class="logo-img" src="images/raketka.png">
+            </a>
+        </nav>
+    </div>
+</header>
+<main class="main">
+    <div class="container-main">
 
-<a href="index.html">
-    <button>Interrupt</button>
-</a>
-<br>
+        <nav class="nav-main">
+            <a class="headline-btn" href="index.html">Finish</a>
 
-<table border="1">
-        <tr>
-        <th>PREVIOUS</th>
-        <th>PREVIOUS</th>
-        <th>PREVIOUS</th>
-        <th>PLAYER</th>
-        <th>SETS</th>
-        <th>GAME</th>
-        <th>POINTS</th>
-    </tr>
+            <div class="board">
+                <div class="column">
+                    <div class="title">Previous sets</div>
+                    <div class="wind">
+                        <div class="win">${score.getPrevSets(player1, 1)}</div>
+                        <div class="win">${score.getPrevSets(player1, 2)}</div>
+                        <div class="win">${score.getPrevSets(player1, 3)}</div>
+                    </div>
+                    <div class="wind">
+                        <div class="win">${score.getPrevSets(player2, 1)}</div>
+                        <div class="win">${score.getPrevSets(player2, 2)}</div>
+                        <div class="win">${score.getPrevSets(player2, 3)}</div>
+                    </div>
+                </div>
 
-    <tr>
-        <th>${score.getPrevSets(player1, 1)}</th>
-        <th>${score.getPrevSets(player1, 2)}</th>
-        <th>${score.getPrevSets(player1, 3)}</th>
-        <th>${player1.getName()}</th>
-        <th>${score.getSets(player1)}</th>
-        <th>${score.getGames(player1)}</th>
-        <th>${score.getPoints(player1)}</th>
-        <th>
-            <form action="${path}" method="POST">
-                <input type="hidden" name="idwinner" value="${player1.getId()}"/>
-                <input type="submit" value="POINT"/>
-            </form>
-        </th>
-    </tr>
-    <tr>
-        <th>${score.getPrevSets(player2, 1)}</th>
-        <th>${score.getPrevSets(player2, 2)}</th>
-        <th>${score.getPrevSets(player2, 3)}</th>
-        <th>${player2.getName()}</th>
-        <th>${score.getSets(player2)}</th>
-        <th>${score.getGames(player2)}</th>
-        <th>${score.getPoints(player2)}</th>
-        <th>
-            <form action="${path}" method="POST">
-                <input type="hidden" name="idwinner" value="${player2.getId()}"/>
-                <input type="submit" value="POINT"/>
-            </form>
-        </th>
-    </tr>
-</table>
+                <div class="column">
+                    <div class="players">Players</div>
+                    <div class="wind">
+                        <div class="win-name">${player1.getName()}</div>
+                    </div>
+                    <div class="wind">
+                        <div class="win-name">${player2.getName()}</div>
+                    </div>
+                </div>
 
+                <div class="column">
+                    <div class="title">Sets</div>
+                    <div class="wind">
+                        <div class="win">${score.getSets(player1)}</div>
+                    </div>
+                    <div class="wind">
+                        <div class="win">${score.getSets(player2)}</div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="title">Games</div>
+                    <div class="wind">
+                        <div class="win">${score.getGames(player1)}</div>
+                    </div>
+                    <div class="wind">
+                        <div class="win">${score.getGames(player2)}</div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div cclass="title">Points</div>
+                    <div class="wind">
+                        <div class="win-sub">
+                            <form action="${path}" method="POST">
+                                <input type="hidden" name="idwinner" value="${player1.getId()}"/>
+                                <input class="point-sub" type="submit" value="${score.getPoints(player1)}"/>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="wind">
+                        <div class="win-sub">
+                            <form action="${path}" method="POST">
+                                <input type="hidden" name="idwinner" value="${player2.getId()}"/>
+                                <input class="point-sub" type="submit" value="${score.getPoints(player2)}"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+        </div>
+    </div>
+</footer>
 </body>
 </html>

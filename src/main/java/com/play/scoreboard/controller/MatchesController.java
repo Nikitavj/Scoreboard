@@ -26,7 +26,9 @@ public class MatchesController extends HttpServlet {
 
         String pageString = req.getParameter("page");
         String name = req.getParameter("filter_by_player_name");
-        Validator.validName(name);
+        if (name != null) {
+            Validator.validName(name);
+        }
 
         List<Match> matches = null;
         int pages = 1;

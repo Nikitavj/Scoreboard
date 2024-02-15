@@ -7,7 +7,7 @@ body{
     font-weight: 400;
     font-size: 40px;
     line-height: 60px;
-    color: black;
+    color: white;
     height: 100%;
 }
 
@@ -26,6 +26,7 @@ body{
 .main{
     background: url("oblaka.jpg");
     height: 100%;
+    color: white;
 }
 
 .container-main{
@@ -34,6 +35,13 @@ body{
     max-width: 800px;
     color: white;
     height: 100%;
+}
+
+.nav-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 a{
@@ -46,15 +54,9 @@ a{
 
 .nav{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-}
-
-.nav-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
 .logo-right{
