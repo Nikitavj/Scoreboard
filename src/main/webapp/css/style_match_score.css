@@ -1,8 +1,8 @@
-body{
+body {
     line-height: 1;
 }
 
-.board{
+.board {
     max-width: 100%;
     background-color: #006900;
     padding: 15px;
@@ -10,33 +10,29 @@ body{
     font-size: 30px;
     color: white;
     display: flex;
-    flex-direction: row;
-    align-content: center;
 }
 
 
-.column{
+.column {
     display: flex;
     flex-direction: column;
-    align-content: center;
-    margin: 5px;
+    align-items: center;
+    margin: 5px 3px;
 }
 
-
-.wind{
+.wind {
     display: flex;
-    flex-direction: row;
 }
 
 .win,
-.win-name{
+.win-name {
     background-color: #bfbf01;
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
 }
 
-.win-name{
+.win-name {
     width: 200px;
     white-space: nowrap;
     overflow: hidden;
@@ -49,10 +45,10 @@ body{
     border-radius: 5px;
 }
 
-.point-sub{
+.point-sub {
     font-size: 30px;
     color: white;
-    padding: 10px 30px;
+    padding: 7px 30px;
     border-radius: 5px;
     border-bottom-style: groove;
     border-bottom-width: thin;
@@ -63,62 +59,81 @@ form {
     margin-block-end: 0em;
 }
 
+.tiebreak {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff0000;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.tiebreak-text {
+    writing-mode: vertical-lr;
+    transform: scale(-1);
+}
+
 @media (max-width: 1000px) {
-    .board{
-        font-size: 20px;
-    }
-    .point-sub{
+    .board {
         font-size: 20px;
     }
 
-    .win-name{
+    .point-sub {
+        font-size: 20px;
+    }
+
+    .win-name {
         width: 150px;
     }
 }
 
 @media (max-width: 700px) {
 
-    .board{
+    .board {
         flex-direction: column;
         padding: 5px;
     }
 
-    .column div:nth-child(2):not(.win){
+    .column div:nth-child(2):not(.win) {
         order: -1;
     }
 
-    .column{
+    .column {
         flex-direction: row;
         justify-content: space-between;
         align-content: center;
     }
 
-    .winds{
+    .winds {
         display: flex;
         flex-direction: row;
     }
 
-    .wind{
-        display: flex;
+    .wind {
         flex-direction: column;
     }
 
-    .win{
+    .win {
         margin: 3px 5px;
     }
 
-    .win-name{
+    .win-name {
         width: 100px;
         margin: 5px 3px;
     }
 
-    .players{
+    .players {
         display: none;
     }
 
-    .main{
+    .main {
         background: url("oblaka.jpg");
         height: 200%;
+    }
+
+    .tiebreak-text {
+        writing-mode: horizontal-tb;
+        transform: scale(1);
     }
 }
 

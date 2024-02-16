@@ -63,14 +63,14 @@ public class MatchScoreCalculationServiseTest {
         calcServise.calculate(score, player1);
 
         Assertions.assertTrue(
-                score.getEqually(),
+                score.isDeuce(),
                 () -> "Неверное объявление РОВНО");
     }
 
     @Test
     @DisplayName("Test calculate for РОВНО")
     void testGameEqually() {
-        score.startEqually();
+        score.setDeuce(true);
         final int POINT_PLAYER = 2;
         int gamesPlayer = score.getGames(player1);
         for (int i = 0; i < POINT_PLAYER; i++){
@@ -115,7 +115,7 @@ public class MatchScoreCalculationServiseTest {
         calcServise.calculate(score, player1);
 
         Assertions.assertTrue(
-                score.getTieBreak(),
+                score.isTiebreak(),
                 () -> "Не объявляется Tie-Break");
     }
 
@@ -133,7 +133,7 @@ public class MatchScoreCalculationServiseTest {
         for (int i = 0; i < p2; i++) {
             score.addPoint(player2);
         }
-        score.startTieBreak();
+        score.setTiebreak(true);
         calcServise.calculate(score, player1);
 
         Assertions.assertTrue(

@@ -71,6 +71,13 @@
                     </div>
                 </div>
 
+
+                <c:if test="${score.isTiebreak()}">
+                    <div class="tiebreak">
+                        <div class="tiebreak-text">Tiebreak</div>
+                    </div>
+                </c:if>
+
                 <div class="column">
                     <div class="title">Games</div>
                     <div class="wind">
@@ -80,6 +87,12 @@
                         <div class="win">${score.getGames(player2)}</div>
                     </div>
                 </div>
+
+                <c:if test="${score.isDeuce()}">
+                    <div class="tiebreak">
+                        <div class="tiebreak-text">Deuce</div>
+                    </div>
+                </c:if>
 
                 <div class="column">
                     <div cclass="title">Points</div>

@@ -14,7 +14,7 @@ public class MatchScoreCalculationServise {
         int points1 = score.getPoints(score.getPlayer1());
         int points2 = score.getPoints(score.getPlayer2());
 
-        if (score.getTieBreak()) {
+        if (score.isTiebreak()) {
             if ((points1 == 7 && points2 <= 5)
                     || (points2 == 7 && points1 <= 5)) {
                 score.addGame(winner);
@@ -30,24 +30,24 @@ public class MatchScoreCalculationServise {
             return;
         }
 
-        if (!score.getEqually()) {
+        if (!score.isDeuce()) {
             if ((points1 == 4 && points2 <= 2)
                     || (points2 == 4 && points1 <= 2)) {
                 score.addGame(winner);
-                score.clearEqually();
+                score.setDeuce(false);
                 return;
             }
 
             if (points1 == 3 && points2 == 3) {
-                score.startEqually();
+                score.setDeuce(true);
                 return;
             }
         }
 
-        if (score.getEqually()) {
+        if (score.isDeuce()) {
             if (Math.abs(points1 - points2) == 2) {
                 score.addGame(winner);
-                score.clearEqually();
+                score.setDeuce(false);
             }
         }
     }
@@ -56,7 +56,7 @@ public class MatchScoreCalculationServise {
         int games1 = score.getGames(score.getPlayer1());
         int games2 = score.getGames(score.getPlayer2());
 
-        if (!score.getTieBreak()) {
+        if (!score.isTiebreak()) {
             if ((games1 == 6 && games2 <= 4)
                     || (games2 == 6 && games1 <= 4)
                     || (games1 == 7 && games2 == 5)
@@ -66,15 +66,15 @@ public class MatchScoreCalculationServise {
             }
 
             if (games1 == 6 && games2 == 6) {
-                score.startTieBreak();
+                score.setTiebreak(true);
                 return;
             }
         }
 
-        if (score.getTieBreak()) {
+        if (score.isTiebreak()) {
             if (games1 == 7 || games2 == 7) {
                 score.addSet(winner);
-                score.clearTieBreak();
+                score.setTiebreak(false);
             }
         }
     }

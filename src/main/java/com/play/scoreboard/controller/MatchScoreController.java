@@ -53,12 +53,6 @@ public class MatchScoreController extends HttpServlet {
         ScoreGame score = match.getScore();
         score.addPoint(winner);
 
-        Player player1 = match.getPlayer1();
-        Player player2 = match.getPlayer2();
-        req.setAttribute("player1", player1);
-        req.setAttribute("player2", player2);
-        req.setAttribute("score", score);
-
         if (scoreServ.calculate(score, winner)) {
             match.setWinner(winner);
             finishServ.save(match);
@@ -68,8 +62,6 @@ public class MatchScoreController extends HttpServlet {
                     .forward(req, resp);
         }
 
-        getServletContext()
-                .getRequestDispatcher("/match-score.jsp")
-                .forward(req, resp);
+        resp.sendRedirect("/match-score" + "?uuid=" + match.getUuid());
     }
 }

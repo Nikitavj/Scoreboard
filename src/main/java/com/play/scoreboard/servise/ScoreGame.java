@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -17,8 +16,8 @@ public class ScoreGame {
     private Player player2;
     private Map<Player, ScorePlayer> score = new HashMap<>();
     private int setCurrent = 1;
-    private boolean equally;
-    private boolean tieBreak;
+    private boolean deuce;
+    private boolean tiebreak;
 
     public ScoreGame(Player player1, Player player2) {
         this.player1 = player1;
@@ -68,30 +67,6 @@ public class ScoreGame {
 
     private void addPrevSet() {
         score.values().stream().forEach(s -> s.addPrevSet(setCurrent));
-    }
-
-    public void startEqually() {
-        equally = true;
-    }
-
-    public void clearEqually() {
-        equally = false;
-    }
-
-    public boolean getEqually() {
-        return equally;
-    }
-
-    public void startTieBreak() {
-        tieBreak = true;
-    }
-
-    public void clearTieBreak() {
-        tieBreak = false;
-    }
-
-    public boolean getTieBreak() {
-        return tieBreak;
     }
 }
 
