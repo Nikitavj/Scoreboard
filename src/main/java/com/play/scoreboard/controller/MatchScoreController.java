@@ -57,6 +57,14 @@ public class MatchScoreController extends HttpServlet {
             match.setWinner(winner);
             finishServ.save(match);
 
+            Player player1 = match.getPlayer1();
+            Player player2 = match.getPlayer2();
+
+            req.setAttribute("player1", player1);
+            req.setAttribute("player2", player2);
+            req.setAttribute("winner", winner);
+            req.setAttribute("score", score);
+
             getServletContext()
                     .getRequestDispatcher("/final-score.jsp")
                     .forward(req, resp);

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Dell N
@@ -6,51 +7,83 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link type="text/css" rel="stylesheet" href="css/style_index.css"/>
+<link type="text/css" rel="stylesheet" href="css/style_final_score.css"/>
 <html>
 <head>
     <title>Finish Match</title>
 </head>
 <body>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a class="logo-left">
+                <img class="logo-img" src="images/ball.png">
+            </a>
+            <h1>Finish match</h1>
+            <a class="logo-right">
+                <img class="logo-img" src="images/raketka.png">
+            </a>
+        </nav>
+    </div>
+</header>
 
-<a href="new-match">
-    <button>New Match</button>
-</a>
-<br>
+<main class="main">
+    <div class="container-main">
 
-<a href="matches">
-    <button>Matches</button>
-</a>
-<br>
+        <nav class="nav-main">
 
-<table border="1">
-    <tr>
-        <c:if test="${score.getTieBreak()}">Tie-break</c:if>
-        <c:if test="${score.getEqually()}">Equally</c:if>
-    </tr>
+            <a class="headline-btn" href="new-match">New Match</a>
+            <a class="headline-btn" href="matches">Matches</a>
 
-    <tr>
-        <th>PREVIOUS</th>
-        <th>PREVIOUS</th>
-        <th>PREVIOUS</th>
-        <th>PLAYER</th>
-        <th>SETS</th>
-    </tr>
+            <div class="board">
+                <div class="column">
+                    <div class="title">Sets</div>
+                    <div class="wind">
+                        <div class="win">${score.getPrevSets(player1, 1)}</div>
+                        <div class="win">${score.getPrevSets(player1, 2)}</div>
+                        <div class="win">${score.getPrevSets(player1, 3)}</div>
+                    </div>
+                    <div class="wind">
+                        <div class="win">${score.getPrevSets(player2, 1)}</div>
+                        <div class="win">${score.getPrevSets(player2, 2)}</div>
+                        <div class="win">${score.getPrevSets(player2, 3)}</div>
+                    </div>
+                </div>
 
-    <tr>
-        <th>${score.getPrevSets(player1, 1)}</th>
-        <th>${score.getPrevSets(player1, 2)}</th>
-        <th>${score.getPrevSets(player1, 3)}</th>
-        <th>${player1.getName()}</th>
-        <th>${score.getSets(player1)}</th>
-    </tr>
-    <tr>
-        <th>${score.getPrevSets(player2, 1)}</th>
-        <th>${score.getPrevSets(player2, 2)}</th>
-        <th>${score.getPrevSets(player2, 3)}</th>
-        <th>${player2.getName()}</th>
-        <th>${score.getSets(player2)}</th>
-    </tr>
-</table>
+                <div class="column">
+                    <div class="players">Players</div>
+                    <div class="players-div">
 
+                        <div class="wind">
+                            <div class="win-name">${player1.getName()}</div>
+
+                            <c:if test="${winner.equals(player1)}">
+                                <img class="logo-cup-img" src="images/cup.png">
+                            </c:if>
+
+                        </div>
+
+                        <div class="wind">
+                            <div class="win-name">${player2.getName()}</div>
+                            <c:if test="${winner.equals(player2)}">
+                                <img class="logo-cup-img" src="images/cup.png">
+                            </c:if>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+        </div>
+    </div>
+</footer>
 </body>
 </html>

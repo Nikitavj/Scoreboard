@@ -27,7 +27,7 @@ VALUES ('Igor'),
        ('Vladimir'),
        ('Innokenti'),
        ('Zhora'),
-       ('Petr');
+       ('Petryyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii');
 
 INSERT INTO Matches (player1, player2, winner)
 VALUES (1, 2, 2),

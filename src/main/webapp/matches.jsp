@@ -1,4 +1,3 @@
-<%@ page import="com.play.scoreboard.models.Match" %>
 <%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
@@ -10,84 +9,133 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link type="text/css" rel="stylesheet" href="css/style_index.css"/>
+<link type="text/css" rel="stylesheet" href="css/style_matches.css"/>
 
 <html>
 <head>
     <title>Matches</title>
 </head>
 <body>
-
-<a href="new-match">
-    <button>New Match</button>
-</a>
-<br><br>
-
-
-Поиск матчей по имени Игрока
-<form action="matches" method="get">
-    <input name="filter_by_player_name" type="text" list="namesPlayers" placeholder="${name}" required>
-    <button>Найти</button>
-</form>
-
-<datalist id="namesPlayers">
-    <c:forEach items="${names}" var="namePlayer">
-        <option value="${namePlayer}">${namePlayer}</option>
-    </c:forEach>
-</datalist>
-
-<a href="matches">
-    <button>All Matches</button>
-</a>
-<br>
-
-<table border="1">
-    <tr>
-        <td></td>
-        <td>Player1</td>
-        <td>Player2</td>
-        <td>Winner</td>
-    </tr>
-    <c:forEach var="match" items="${matches}">
-        <tr>
-            <td>${match.getId()}</td>
-            <td>${match.getPlayer1().getName()}</td>
-            <td>${match.getPlayer2().getName()}</td>
-            <td>${match.getWinner().getName()}</td>
-        </tr>
-    </c:forEach>
-</table>
-<br>
-
-<c:if test="${currentPage > 1}">
-    <td>
-        <c:if test="${name != null}">
-            <a href="matches?page=${currentPage - 1}&filter_by_player_name=${name}">
-                <button>Back</button>
+<header class="header">
+    <div class="container">
+        <nav class="nav">
+            <a class="logo-left">
+                <img class="logo-img" src="images/ball.png">
             </a>
-        </c:if>
-        <c:if test="${name == null}">
-            <a href="matches?page=${currentPage - 1}">
-                <button>Back</button>
+            <h1>Matches</h1>
+            <a class="logo-right">
+                <img class="logo-img" src="images/raketka.png">
             </a>
-        </c:if>
-    </td>
-</c:if>
+        </nav>
+    </div>
+</header>
 
-<td>${currentPage} (${pages})</td>
+<main class="main">
+    <div class="container-main">
+        <nav class="nav-main">
+            <a class="headline-btn" href="new-match">New match</a>
 
-<c:if test="${currentPage < pages}">
-    <td>
-        <c:if test="${name != null}">
-            <a href="matches?page=${currentPage + 1}&filter_by_player_name=${name}">
-                <button>Next</button>
-            </a>
-        </c:if>
-        <c:if test="${name == null}">
-            <a href="matches?page=${currentPage + 1}">
-                <button>Next</button>
-            </a>
-        </c:if>
-    </td>
-</c:if>
+            <div class="board">
+
+                <form class="form-name" action="matches" method="get">
+                    <input class="input-name" name="filter_by_player_name" type="text" list="namesPlayers"
+                           placeholder="${name}" required>
+                    <input class="submit-point" type="submit" value="Search">
+                </form>
+
+                <datalist id="namesPlayers">
+                    <c:forEach items="${names}" var="namePlayer">
+                        <option value="${namePlayer}">${namePlayer}</option>
+                    </c:forEach>
+                </datalist>
+
+                <a href="matches">
+                    <button>All Matches</button>
+                </a>
+
+                <div class="table-div">
+                    <table class="table-matches" border="1">
+                        <tr>
+                            <th></th>
+                            <th>Player1</th>
+                            <th>Player2</th>
+                            <%--                            <th>Winner</th>--%>
+                        </tr>
+                        <c:forEach var="match" items="${matches}">
+                            <tr>
+                                <td>${match.getId()}</td>
+                                <td>
+                                    <c:if test="${match.getPlayer1().equals(match.getWinner())}">
+                                        <img class="logo-cup-img" src="images/cup.png">
+                                    </c:if>
+                                        ${match.getPlayer1().getName()}
+                                </td>
+                                <td>
+                                        ${match.getPlayer2().getName()}
+                                    <c:if test="${match.getPlayer2().equals(match.getWinner())}">
+                                        <img class="logo-cup-img" src="images/cup.png">
+                                    </c:if>
+                                </td>
+                                    <%--                                <td>${match.getWinner().getName()}</td>--%>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+
+                <div class="navigate-board">
+                    <div class="button-navigate">
+                        <c:if test="${currentPage > 1}">
+                            <td>
+                                <c:if test="${name != null}">
+                                    <a href="matches?page=${currentPage - 1}&filter_by_player_name=${name}">
+                                        <button>Back</button>
+                                    </a>
+                                </c:if>
+                                <c:if test="${name == null}">
+                                    <a href="matches?page=${currentPage - 1}">
+                                        <button>Back</button>
+                                    </a>
+                                </c:if>
+                            </td>
+                        </c:if>
+                    </div>
+
+                    <div class="button-navigate">
+                        <p>${currentPage} (${pages})</p>
+                    </div>
+
+                    <div class="button-navigate">
+                        <c:if test="${currentPage < pages}">
+                            <td>
+                                <c:if test="${name != null}">
+                                    <a href="matches?page=${currentPage + 1}&filter_by_player_name=${name}">
+                                        <button>Next</button>
+                                    </a>
+                                </c:if>
+                                <c:if test="${name == null}">
+                                    <a href="matches?page=${currentPage + 1}">
+                                        <button>Next</button>
+                                    </a>
+                                </c:if>
+                            </td>
+                        </c:if>
+                    </div>
+                </div>
+            </div>
+
+
+        </nav>
+
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-inner">
+        </div>
+    </div>
+</footer>
 </body>
 </html>

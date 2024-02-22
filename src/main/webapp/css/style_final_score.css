@@ -1,0 +1,123 @@
+body {
+    line-height: 1;
+}
+
+.board {
+    width: 100%;
+    background-color: #006900;
+    padding: 15px;
+    border-radius: 15px;
+    font-size: 30px;
+    color: white;
+    display: flex;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px 3px;
+}
+
+.wind {
+    display: flex;
+    justify-content: space-between;
+}
+
+.win,
+.win-name {
+    background-color: #bfbf01;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.win-name {
+    width: 480px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.win-sub {
+    background-color: #d2d200;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+form {
+    margin-block-end: 0em;
+}
+
+.logo-cup-img {
+    width: 10%;
+}
+
+.players-div {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 900px) {
+    .wind{
+        align-items: center;
+    }
+
+    .board{
+        width: 600px;
+    }
+
+    .win-name {
+        width: 330px;
+    }
+}
+
+@media (max-width: 700px) {
+    .board{
+        width: 300px;
+        font-size: 20px;
+        flex-direction: column;
+        padding: 5px;
+    }
+
+    .players-div{
+        width: 100%;
+    }
+
+    .wind{
+        width: 50%;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .win {
+        margin: 3px 5px;
+    }
+
+    .win-name {
+        width: 110px;
+    }
+
+    .logo-cup-img {
+        width: 30%;
+    }
+
+    .column div:nth-child(2):not(.win) {
+        order: -1;
+    }
+
+    .column {
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+    }
+
+    .players {
+        display: none;
+    }
+
+    .players-div{
+        flex-direction: row-reverse;
+    }
+}
+
