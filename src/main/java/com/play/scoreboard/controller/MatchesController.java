@@ -26,16 +26,22 @@ public class MatchesController extends HttpServlet {
 
         String pageString = req.getParameter("page");
         String name = req.getParameter("filter_by_player_name");
-        if (name != null) {
-            Validator.validName(name);
-        }
-
         List<Match> matches = null;
         int pages = 1;
         int page = 1;
-        if (pageString != null) {
-            page = Integer.parseInt(pageString);
-            Validator.validPage(page);
+
+        try {
+            if (name != null) {
+                Validator.validName(name);
+            }
+
+            if (pageString != null) {
+                page = Integer.parseInt(pageString);
+                Validator.validPage(page);
+            }
+        } catch (RuntimeException e) {
+            req.setAttribute("message", e.getMessage());
+            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
         }
 
         //все матчи, первая страница

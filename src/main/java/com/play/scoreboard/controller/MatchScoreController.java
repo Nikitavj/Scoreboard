@@ -22,18 +22,24 @@ public class MatchScoreController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String uuid = req.getParameter("uuid");
-        MatchScoreModel match = ongMatServ.get(uuid);
+        try {
+            String uuid = req.getParameter("uuid");
+            MatchScoreModel match = ongMatServ.get(uuid);
 
-        ScoreGame score = match.getScore();
-        Player player1 = match.getPlayer1();
-        Player player2 = match.getPlayer2();
+            ScoreGame score = match.getScore();
+            Player player1 = match.getPlayer1();
+            Player player2 = match.getPlayer2();
 
-        req.setAttribute("player1", player1);
-        req.setAttribute("player2", player2);
-        req.setAttribute("score", score);
+            req.setAttribute("player1", player1);
+            req.setAttribute("player2", player2);
+            req.setAttribute("score", score);
 
-        getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
+            getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
+
+        } catch (RuntimeException e) {
+            req.setAttribute("message", e.getMessage());
+            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+        }
     }
 
     @Override
@@ -47,29 +53,35 @@ public class MatchScoreController extends HttpServlet {
                 .replaceAll("/", "")
         );
 
-        MatchScoreModel match = ongMatServ.get(req.getParameter("uuid"));
-        Validator.validIdForMatch(idWin, match);
-        Player winner = match.getPlayerById(idWin);
-        ScoreGame score = match.getScore();
-        score.addPoint(winner);
+        try {
+            MatchScoreModel match = ongMatServ.get(req.getParameter("uuid"));
+            Validator.validIdForMatch(idWin, match);
 
-        if (scoreServ.calculate(score, winner)) {
-            match.setWinner(winner);
-            finishServ.save(match);
+            Player winner = match.getPlayerById(idWin);
+            ScoreGame score = match.getScore();
+            score.addPoint(winner);
 
-            Player player1 = match.getPlayer1();
-            Player player2 = match.getPlayer2();
+            if (scoreServ.calculate(score, winner)) {
+                match.setWinner(winner);
+                finishServ.save(match);
 
-            req.setAttribute("player1", player1);
-            req.setAttribute("player2", player2);
-            req.setAttribute("winner", winner);
-            req.setAttribute("score", score);
+                Player player1 = match.getPlayer1();
+                Player player2 = match.getPlayer2();
 
-            getServletContext()
-                    .getRequestDispatcher("/final-score.jsp")
-                    .forward(req, resp);
+                req.setAttribute("player1", player1);
+                req.setAttribute("player2", player2);
+                req.setAttribute("winner", winner);
+                req.setAttribute("score", score);
+
+                getServletContext()
+                        .getRequestDispatcher("/final-score.jsp")
+                        .forward(req, resp);
+            }
+
+            resp.sendRedirect("/match-score" + "?uuid=" + match.getUuid());
+        } catch (RuntimeException e) {
+            req.setAttribute("message", e.getMessage());
+            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
         }
-
-        resp.sendRedirect("/match-score" + "?uuid=" + match.getUuid());
     }
 }

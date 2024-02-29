@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
@@ -17,9 +18,9 @@
             <a class="logo-left">
                 <img class="logo-img" src="images/ball.png">
             </a>
-            <div class="text">
-                <h1>New match</h1>
-            </div>
+
+                <div class="header-text">New match</div>
+
             <a class="logo-right">
                 <img class="logo-img" src="images/raketka.png">
             </a>
@@ -33,7 +34,7 @@
             <a class="headline-btn" href="matches">Matches</a>
         </nav>
         <div class="form">
-            <form class="form-name" action="new-match" method="POST">
+            <form class="form-name" action="/new-match" method="POST">
                 <input class="input-name" name="name1" placeholder="Name Player1" required type="text"/>
                 <input class="input-name" name="name2" placeholder="Name Player2" required type="text"/>
 

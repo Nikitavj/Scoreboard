@@ -17,6 +17,11 @@
 /*    overflow: scroll;*/
 /*}*/
 
+.match-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
 .find-board{
     display: flex;
     align-items: center;
@@ -45,7 +50,7 @@ button,
     max-width: 100%;
     font-size: 30px;
     /*width: 100%;*/
-    text-align: center;
+    text-align: left;
     background: #006900;
     border: none;
     border-spacing: 10px;
@@ -120,15 +125,36 @@ p{
 
 @media (max-width: 550px) {
 
+    button{
+        font-size: 23px;
+    }
+
+    .submit-point{
+        font-size: 23px;
+    }
+
+    tr td:first-child {
+        display: none;
+    }
+
+    tr th:first-child {
+        display: none;
+    }
+
+    .board{
+        width: 95%;
+    }
+
     .table-matches{
-        font-size: 15px;
+        font-size: 20px;
     }
 
     .input-name{
-        font-size: 15px;
+        font-size: 20px;
+        height: 40px;
     }
 
     td{
-        max-width: 130px;
+        max-width: 150px;
     }
 }

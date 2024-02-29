@@ -17,7 +17,7 @@ public class NewMatchController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         getServletContext()
-                .getRequestDispatcher(req.getContextPath() + "/new-match.html")
+                .getRequestDispatcher("/new-match.html")
                 .forward(req, resp);
     }
 
@@ -29,17 +29,21 @@ public class NewMatchController extends HttpServlet {
         String name1 = req.getParameter("name1");
         String name2 = req.getParameter("name2");
 
-        Validator.validName(name1);
-        Validator.validName(name2);
+        try {
+            Validator.validNames(name1, name2);
 
-        //проверить существование игроков в таблице и создать если не существуют
-        var regServise = new PlayerServise();
-        var player1 = regServise.add(name1);
-        var player2 = regServise.add(name2);
+            //проверить существование игроков в таблице и создать если не существуют
+            var regServise = new PlayerServise();
+            var player1 = regServise.add(name1);
+            var player2 = regServise.add(name2);
 
-        MatchScoreModel match = new OngoingMatchesServise()
-                .startNewMatch(player1, player2);
+            MatchScoreModel match = new OngoingMatchesServise()
+                    .startNewMatch(player1, player2);
 
-        resp.sendRedirect("/match-score?uuid=" + match.getUuid());
+            resp.sendRedirect("/match-score?uuid=" + match.getUuid());
+        } catch (RuntimeException e) {
+            req.setAttribute("message", e.getMessage());
+            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+        }
     }
 }

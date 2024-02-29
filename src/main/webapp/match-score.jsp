@@ -5,6 +5,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="css/normalize.css">
 <link type="text/css" rel="stylesheet" href="css/style_index.css"/>
 <link type="text/css" rel="stylesheet" href="css/style_match_score.css"/>
 <%
@@ -14,6 +15,7 @@
 
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScoreBoard</title>
 </head>
 <body>
@@ -23,7 +25,7 @@
             <a class="logo-left">
                 <img class="logo-img" src="images/ball.png">
             </a>
-            <h1>Match score</h1>
+            <div class="header-text">Match score</div>
             <a class="logo-right">
                 <img class="logo-img" src="images/raketka.png">
             </a>
@@ -95,12 +97,14 @@
                 </c:if>
 
                 <div class="column">
-                    <div cclass="title">Points</div>
+                    <div cclass="title">
+                        <div class="points">Points</div>
+                    </div>
                     <div class="wind">
                         <div class="win-sub">
                             <form action="${path}" method="POST">
                                 <input type="hidden" name="idwinner" value="${player1.getId()}"/>
-                                <input class="point-sub" type="submit" value="${score.getPoints(player1)}"/>
+                                <input class="point-sub" type="submit" value="${score.getScore(player1)}"/>
                             </form>
                         </div>
                     </div>
@@ -108,7 +112,7 @@
                         <div class="win-sub">
                             <form action="${path}" method="POST">
                                 <input type="hidden" name="idwinner" value="${player2.getId()}"/>
-                                <input class="point-sub" type="submit" value="${score.getPoints(player2)}"/>
+                                <input class="point-sub" type="submit" value="${score.getScore(player2)}"/>
                             </form>
                         </div>
                     </div>

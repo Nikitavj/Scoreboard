@@ -9,11 +9,13 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="css/normalize.css">
 <link type="text/css" rel="stylesheet" href="css/style_index.css"/>
 <link type="text/css" rel="stylesheet" href="css/style_matches.css"/>
 
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matches</title>
 </head>
 <body>
@@ -23,7 +25,7 @@
             <a class="logo-left">
                 <img class="logo-img" src="images/ball.png">
             </a>
-            <h1>Matches</h1>
+            <div class="header-text">Matches</div>
             <a class="logo-right">
                 <img class="logo-img" src="images/raketka.png">
             </a>
@@ -34,9 +36,18 @@
 <main class="main">
     <div class="container-main">
         <nav class="nav-main">
-            <a class="headline-btn" href="new-match">New match</a>
 
             <div class="board">
+
+                <div class="match-buttons">
+                    <a href="matches">
+                        <button>All Matches</button>
+                    </a>
+
+                    <a href="new-match">
+                        <button>New match</button>
+                    </a>
+                </div>
 
                 <form class="form-name" action="matches" method="get">
                     <input class="input-name" name="filter_by_player_name" type="text" list="namesPlayers"
@@ -49,10 +60,6 @@
                         <option value="${namePlayer}">${namePlayer}</option>
                     </c:forEach>
                 </datalist>
-
-                <a href="matches">
-                    <button>All Matches</button>
-                </a>
 
                 <div class="table-div">
                     <table class="table-matches" border="1">
@@ -72,10 +79,10 @@
                                         ${match.getPlayer1().getName()}
                                 </td>
                                 <td>
-                                        ${match.getPlayer2().getName()}
                                     <c:if test="${match.getPlayer2().equals(match.getWinner())}">
                                         <img class="logo-cup-img" src="images/cup.png">
                                     </c:if>
+                                        ${match.getPlayer2().getName()}
                                 </td>
                                     <%--                                <td>${match.getWinner().getName()}</td>--%>
                             </tr>
@@ -123,7 +130,6 @@
                     </div>
                 </div>
             </div>
-
 
         </nav>
 

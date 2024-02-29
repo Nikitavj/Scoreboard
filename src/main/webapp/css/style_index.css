@@ -11,6 +11,10 @@ body{
     background-color: #006900;
 }
 
+.header-text{
+    font-size: 80px;
+}
+
 .container{
     margin: 0 auto;
     padding: 15px;
@@ -72,6 +76,10 @@ a{
 }
 
 @media (max-width: 700px) {
+    .header-text{
+        font-size: 60px;
+    }
+
     .main{
         background: url("oblaka.jpg");
         height: 120%;
@@ -82,6 +90,12 @@ a{
 }
 
 @media(max-width: 560px){
+
+    .header-text{
+        font-size: 40px;
+        margin: 0px;
+    }
+
     .logo-img{
         width: 60%;
     }

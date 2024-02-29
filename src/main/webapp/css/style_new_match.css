@@ -32,6 +32,10 @@
     .form{
         width: 320px;
     }
+
+    .header-text{
+        font-size: 40px;
+    }
     .input-name{
         font-size: 30px;
     }

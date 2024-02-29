@@ -7,7 +7,7 @@ body {
     background-color: #006900;
     padding: 15px;
     border-radius: 15px;
-    font-size: 30px;
+    font-size: 25px;
     color: white;
     display: flex;
 }
@@ -87,7 +87,11 @@ form {
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
+
+    .point-sub {
+        padding: 10px 20px;
+    }
 
     .board {
         flex-direction: column;
@@ -123,6 +127,10 @@ form {
     }
 
     .players {
+        display: none;
+    }
+
+    .points{
         display: none;
     }
 

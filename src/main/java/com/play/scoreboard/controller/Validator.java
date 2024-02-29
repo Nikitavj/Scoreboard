@@ -10,6 +10,12 @@ public class Validator {
         }
     }
 
+    public static void validNames(String name1, String name2) {
+        if (name1.equals(name2)) {
+            throw new RuntimeException("Введены два одинаковых имени");
+        }
+    }
+
     public static void validIdForMatch(Long idWin, MatchScoreModel match) {
         if(idWin != match.getPlayer1().getId() &&
                 idWin != match.getPlayer2().getId()) {
