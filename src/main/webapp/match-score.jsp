@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="column">
-                    <div class="players">Players</div>
+                    <div class="orderPlayers">Players</div>
                     <div class="wind">
                         <div class="win-name">${player1.getName()}</div>
                     </div>
