@@ -32,5 +32,5 @@ public abstract class Score<T> {
         playerScores.add(playerNumber == 0 ? 1 : 0, score);
     }
 
-    abstract State pointWon(int playerNumber);
+    public abstract State pointWon(int playerNumber);
 }
