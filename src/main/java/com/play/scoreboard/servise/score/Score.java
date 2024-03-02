@@ -7,7 +7,7 @@ import java.util.Map;
 
 public abstract class Score<T> {
 
-    List<T> playerScores = new ArrayList<>();
+    private final List<T> playerScores = new ArrayList<>();
 
     public Score() {
         playerScores.add(0, getZeroScore());

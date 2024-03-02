@@ -10,9 +10,9 @@ public class RegularGameScore extends GameScore<RegularGamePoints>{
     public State pointWon(int playerNumber) {
         RegularGamePoints playerScore = getPlayerScore(playerNumber);
 
-        if (getPlayerScore(playerNumber).ordinal() <= RegularGamePoints.THIRTY.ordinal()) {
+        if (playerScore.ordinal() <= RegularGamePoints.THIRTY.ordinal()) {
             setPlayerScore(playerNumber, playerScore.next());
-        } else if (getPlayerScore(playerNumber) == RegularGamePoints.FORTY) {
+        } else if (playerScore == RegularGamePoints.FORTY) {
             RegularGamePoints oppositePlayerScore = getOppositePlayerScore(playerNumber);
 
             if (oppositePlayerScore == RegularGamePoints.FORTY) {
@@ -22,7 +22,7 @@ public class RegularGameScore extends GameScore<RegularGamePoints>{
             } else {
                 return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
             }
-        }else if (getPlayerScore(playerNumber) == RegularGamePoints.ADVANTAGE) {
+        }else if (playerScore == RegularGamePoints.ADVANTAGE) {
             return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
         } else {
             throw new IllegalStateException("Cannot call pointWon() on ADVANTAGE");
