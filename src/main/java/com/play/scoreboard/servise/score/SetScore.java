@@ -50,6 +50,10 @@ public class SetScore extends Score<Integer> {
             return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
         }
 
+        if (tiebreak) {
+            return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
+        }
+
         return State.ONGOING;
     }
 
