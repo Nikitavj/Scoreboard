@@ -1,11 +1,11 @@
 package com.play.scoreboard.servise.score;
 
-public class SetScore extends Score<Integer> {
+public class RegularSetScore extends Score<Integer> {
     private RegularGameScore currentGame;
     private TiebreakGameScore tiebreakGame;
     private boolean tiebreak = false;
 
-    public SetScore() {
+    public RegularSetScore() {
         this.currentGame = new RegularGameScore();
         this.tiebreakGame = new TiebreakGameScore();
     }

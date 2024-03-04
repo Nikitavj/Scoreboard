@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class MatchScoreCalculationServiseTest {
+public class RegularMatchScoreCalculationServiseTest {
     Player player1 = new Player();
     Player player2 = new Player();
     OngoingMatchesServise ongServise = new OngoingMatchesServise();
