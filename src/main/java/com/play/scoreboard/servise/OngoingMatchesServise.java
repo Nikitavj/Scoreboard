@@ -11,7 +11,7 @@ public class OngoingMatchesServise {
 
     public MatchScoreModel startNewMatch(Player player1, Player player2) {
         String uuid = UUID.randomUUID().toString();
-        var match = new MatchScoreModel(player1, player2, uuid);
+        MatchScoreModel match = new MatchScoreModel(player1, player2, uuid);
         matches.put(uuid, match);
         return match;
     }

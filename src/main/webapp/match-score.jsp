@@ -39,42 +39,56 @@
             <a class="headline-btn" href="index.html">Finish</a>
 
             <div class="board">
+<%--                <div class="column">--%>
+<%--                    <div class="title">Previous sets</div>--%>
+<%--                    <div class="wind">--%>
+<%--                        <div class="win">${match.getPrevSets(player1, 1)}</div>--%>
+<%--                        <div class="win">${match.getPrevSets(player1, 2)}</div>--%>
+<%--                        <div class="win">${match.getPrevSets(player1, 3)}</div>--%>
+<%--                    </div>--%>
+<%--                    <div class="wind">--%>
+<%--                        <div class="win">${match.getPrevSets(player2, 1)}</div>--%>
+<%--                        <div class="win">${match.getPrevSets(player2, 2)}</div>--%>
+<%--                        <div class="win">${match.getPrevSets(player2, 3)}</div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+
                 <div class="column">
                     <div class="title">Previous sets</div>
                     <div class="wind">
-                        <div class="win">${score.getPrevSets(player1, 1)}</div>
-                        <div class="win">${score.getPrevSets(player1, 2)}</div>
-                        <div class="win">${score.getPrevSets(player1, 3)}</div>
+                        <div class="win">0</div>
+                        <div class="win">0</div>
+                        <div class="win">0</div>
                     </div>
                     <div class="wind">
-                        <div class="win">${score.getPrevSets(player2, 1)}</div>
-                        <div class="win">${score.getPrevSets(player2, 2)}</div>
-                        <div class="win">${score.getPrevSets(player2, 3)}</div>
+                        <div class="win">0</div>
+                        <div class="win">0</div>
+                        <div class="win">0</div>
                     </div>
                 </div>
 
                 <div class="column">
                     <div class="orderPlayers">Players</div>
                     <div class="wind">
-                        <div class="win-name">${player1.getName()}</div>
+                        <div class="win-name">${match.getPlayer1().getName()}</div>
                     </div>
                     <div class="wind">
-                        <div class="win-name">${player2.getName()}</div>
+                        <div class="win-name">${match.getPlayer2().getName()}</div>
                     </div>
                 </div>
 
                 <div class="column">
                     <div class="title">Sets</div>
                     <div class="wind">
-                        <div class="win">${score.getSets(player1)}</div>
+                        <div class="win">${match.getSetsPlayer(0)}</div>
                     </div>
                     <div class="wind">
-                        <div class="win">${score.getSets(player2)}</div>
+                        <div class="win">${match.getSetsPlayer(1)}</div>
                     </div>
                 </div>
 
 
-                <c:if test="${score.isTiebreak()}">
+                <c:if test="${match.isTiebreak()}">
                     <div class="tiebreak">
                         <div class="tiebreak-text">Tiebreak</div>
                     </div>
@@ -83,18 +97,18 @@
                 <div class="column">
                     <div class="title">Games</div>
                     <div class="wind">
-                        <div class="win">${score.getGames(player1)}</div>
+                        <div class="win">${match.getGamesPlayer(0)}</div>
                     </div>
                     <div class="wind">
-                        <div class="win">${score.getGames(player2)}</div>
+                        <div class="win">${match.getGamesPlayer(1)}</div>
                     </div>
                 </div>
 
-                <c:if test="${score.isDeuce()}">
-                    <div class="tiebreak">
-                        <div class="tiebreak-text">Deuce</div>
-                    </div>
-                </c:if>
+<%--                <c:if test="${match.isDeuce()}">--%>
+<%--                    <div class="tiebreak">--%>
+<%--                        <div class="tiebreak-text">Deuce</div>--%>
+<%--                    </div>--%>
+<%--                </c:if>--%>
 
                 <div class="column">
                     <div cclass="title">
@@ -103,16 +117,16 @@
                     <div class="wind">
                         <div class="win-sub">
                             <form action="${path}" method="POST">
-                                <input type="hidden" name="idwinner" value="${player1.getId()}"/>
-                                <input class="point-sub" type="submit" value="${score.getScore(player1)}"/>
+                                <input type="hidden" name="winnerNumber" value="0"/>
+                                <input class="point-sub" type="submit" value="${match.getPointsPlayer(0)}"/>
                             </form>
                         </div>
                     </div>
                     <div class="wind">
                         <div class="win-sub">
                             <form action="${path}" method="POST">
-                                <input type="hidden" name="idwinner" value="${player2.getId()}"/>
-                                <input class="point-sub" type="submit" value="${score.getScore(player2)}"/>
+                                <input type="hidden" name="winnerNumber" value="1"/>
+                                <input class="point-sub" type="submit" value="${match.getPointsPlayer(1)}"/>
                             </form>
                         </div>
                     </div>

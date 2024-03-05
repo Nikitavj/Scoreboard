@@ -1,5 +1,8 @@
 package com.play.scoreboard.servise.score;
 
+import lombok.Getter;
+
+@Getter
 public class RegularMatchScore extends Score<Integer>{
     RegularSetScore currentSet;
 
@@ -26,7 +29,10 @@ public class RegularMatchScore extends Score<Integer>{
     }
 
     public State setWon(int playerNumber) {
-        if (getPlayerScore(playerNumber) == 2) {
+        setPlayerScore(playerNumber, getPlayerScore(playerNumber) + 1);
+        currentSet = new RegularSetScore();
+
+        if (getPlayerScore(playerNumber) >= 2) {
             return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
         }
 

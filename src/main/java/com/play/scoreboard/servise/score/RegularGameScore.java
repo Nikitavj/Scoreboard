@@ -1,5 +1,8 @@
 package com.play.scoreboard.servise.score;
 
+import lombok.Getter;
+
+@Getter
 public class RegularGameScore extends GameScore<RegularGamePoints>{
     @Override
     protected RegularGamePoints getZeroScore() {

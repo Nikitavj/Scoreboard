@@ -1,11 +1,6 @@
 package com.play.scoreboard.controller;
 
-import com.play.scoreboard.HibernateUtil;
-import com.play.scoreboard.hibernateDAO.MatchDao;
-import com.play.scoreboard.hibernateDAO.PlayerDAO;
-import com.play.scoreboard.models.Match;
 import com.play.scoreboard.models.MatchScoreModel;
-import com.play.scoreboard.models.Player;
 import com.play.scoreboard.servise.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,14 +21,7 @@ public class MatchScoreController extends HttpServlet {
             String uuid = req.getParameter("uuid");
             MatchScoreModel match = ongMatServ.get(uuid);
 
-            ScoreGame score = match.getScore();
-            Player player1 = match.getPlayer1();
-            Player player2 = match.getPlayer2();
-
-            req.setAttribute("player1", player1);
-            req.setAttribute("player2", player2);
-            req.setAttribute("score", score);
-
+            req.setAttribute("match", match);
             getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
 
         } catch (RuntimeException e) {
@@ -44,41 +32,26 @@ public class MatchScoreController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MatchScoreCalculationServise scoreServ = new MatchScoreCalculationServise();
-        FinishedMatchesPersistenceService finishServ = new FinishedMatchesPersistenceService();
+        MatchScoreCalculationServise calculationServise = new MatchScoreCalculationServise();
+        FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
 
-        String idString = req.getParameter("idwinner");
-        Long idWin = Long.parseLong(
-                idString
-                .replaceAll("/", "")
+        int winnerNumber = Integer.parseInt(
+                req.getParameter("winnerNumber")
+                        .replaceAll("/", "")
         );
 
         try {
             MatchScoreModel match = ongMatServ.get(req.getParameter("uuid"));
-            Validator.validIdForMatch(idWin, match);
-
-            Player winner = match.getPlayerById(idWin);
-            ScoreGame score = match.getScore();
-            score.addPoint(winner);
-
-            if (scoreServ.calculate(score, winner)) {
-                match.setWinner(winner);
-                finishServ.save(match);
-
-                Player player1 = match.getPlayer1();
-                Player player2 = match.getPlayer2();
-
-                req.setAttribute("player1", player1);
-                req.setAttribute("player2", player2);
-                req.setAttribute("winner", winner);
-                req.setAttribute("score", score);
-
+            //Validator.validIdForMatch(idWin, match);
+            req.setAttribute("match", match);
+            if (calculationServise.isFinished(match, winnerNumber)) {
+                persistenceService.save(match);
                 getServletContext()
                         .getRequestDispatcher("/final-score.jsp")
                         .forward(req, resp);
+            } else {
+                getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
             }
-
-            resp.sendRedirect("/match-score" + "?uuid=" + match.getUuid());
         } catch (RuntimeException e) {
             req.setAttribute("message", e.getMessage());
             getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);

@@ -42,14 +42,14 @@
                 <div class="column">
                     <div class="title">Sets</div>
                     <div class="wind">
-                        <div class="win">${score.getPrevSets(player1, 1)}</div>
-                        <div class="win">${score.getPrevSets(player1, 2)}</div>
-                        <div class="win">${score.getPrevSets(player1, 3)}</div>
+                        <div class="win">1</div>
+                        <div class="win">1</div>
+                        <div class="win">1</div>
                     </div>
                     <div class="wind">
-                        <div class="win">${score.getPrevSets(player2, 1)}</div>
-                        <div class="win">${score.getPrevSets(player2, 2)}</div>
-                        <div class="win">${score.getPrevSets(player2, 3)}</div>
+                        <div class="win">2</div>
+                        <div class="win">2</div>
+                        <div class="win">2</div>
                     </div>
                 </div>
 
@@ -58,17 +58,17 @@
                     <div class="orderPlayers-div">
 
                         <div class="wind">
-                            <div class="win-name">${player1.getName()}</div>
+                            <div class="win-name">${match.getPlayer1().getName()}</div>
 
-                            <c:if test="${winner.equals(player1)}">
+                            <c:if test="${match.getWinner().equals(match.getPlayer1())}">
                                 <img class="logo-cup-img" src="images/cup.png">
                             </c:if>
 
                         </div>
 
                         <div class="wind">
-                            <div class="win-name">${player2.getName()}</div>
-                            <c:if test="${winner.equals(player2)}">
+                            <div class="win-name">${match.getPlayer1().getName()}</div>
+                            <c:if test="${match.getWinner().equals(match.getPlayer2())}">
                                 <img class="logo-cup-img" src="images/cup.png">
                             </c:if>
                         </div>

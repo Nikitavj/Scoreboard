@@ -1,9 +1,7 @@
 package com.play.scoreboard.servise.score;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public abstract class Score<T> {
 
@@ -25,11 +23,11 @@ public abstract class Score<T> {
     }
 
     public void setPlayerScore(int playerNumber, T score) {
-        playerScores.add(playerNumber, score);
+        playerScores.set(playerNumber, score);
     }
 
     public void setOppositePlayerScore(int playerNumber, T score) {
-        playerScores.add(playerNumber == 0 ? 1 : 0, score);
+        playerScores.set(playerNumber == 0 ? 1 : 0, score);
     }
 
     public abstract State pointWon(int playerNumber);

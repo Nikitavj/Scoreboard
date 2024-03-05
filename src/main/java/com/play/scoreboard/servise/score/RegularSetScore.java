@@ -1,5 +1,8 @@
 package com.play.scoreboard.servise.score;
 
+import lombok.Getter;
+
+@Getter
 public class RegularSetScore extends Score<Integer> {
     private RegularGameScore currentGame;
     private TiebreakGameScore tiebreakGame;
@@ -20,15 +23,14 @@ public class RegularSetScore extends Score<Integer> {
         State gameState;
 
         if (tiebreak) {
-            gameState = tiebreakGame.pointWon(playerNumber);
+            return tiebreakGame.pointWon(playerNumber);
         } else {
             gameState = currentGame.pointWon(playerNumber);
-        }
-
-        if (gameState == State.PLAYER_ONE_WON) {
-            gameWon(0);
-        } else if (gameState == State.PLAYER_TWO_WON) {
-            gameWon(1);
+            if (gameState == State.PLAYER_ONE_WON) {
+                return gameWon(0);
+            } else if (gameState == State.PLAYER_TWO_WON) {
+                return gameWon(1);
+            }
         }
 
         return State.ONGOING;
@@ -46,15 +48,10 @@ public class RegularSetScore extends Score<Integer> {
                 tiebreak = true;
                 return State.ONGOING;
             }
-        } else if (playerScore == 7 & getOppositePlayerScore(playerNumber) == 5) {
-            return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
-        }
-
-        if (tiebreak) {
+        } else if (playerScore == 7 && getOppositePlayerScore(playerNumber) == 5) {
             return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
         }
 
         return State.ONGOING;
     }
-
 }
