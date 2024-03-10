@@ -1,7 +1,9 @@
 package com.play.scoreboard.controller;
 
-import com.play.scoreboard.models.MatchScoreModel;
-import com.play.scoreboard.servise.*;
+import com.play.scoreboard.match.service.FinishedMatchesPersistenceService;
+import com.play.scoreboard.match.service.MatchScoreCalculationServise;
+import com.play.scoreboard.match.models.MatchScoreModel;
+import com.play.scoreboard.match.service.OngoingMatchesServise;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -46,6 +48,7 @@ public class MatchScoreController extends HttpServlet {
             req.setAttribute("match", match);
             if (calculationServise.isFinished(match, winnerNumber)) {
                 persistenceService.save(match);
+                ongMatServ.remove(match.getUuid());
                 getServletContext()
                         .getRequestDispatcher("/final-score.jsp")
                         .forward(req, resp);

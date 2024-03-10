@@ -40,12 +40,12 @@
             <div class="board">
 
                 <div class="match-buttons">
-                    <a href="matches">
-                        <button>All Matches</button>
-                    </a>
-
                     <a href="new-match">
                         <button>New match</button>
+                    </a>
+
+                    <a href="matches">
+                        <button>Clear</button>
                     </a>
                 </div>
 

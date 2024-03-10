@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="wind">
-                            <div class="win-name">${match.getPlayer1().getName()}</div>
+                            <div class="win-name">${match.getPlayer2().getName()}</div>
                             <c:if test="${match.getWinner().equals(match.getPlayer2())}">
                                 <img class="logo-cup-img" src="images/cup.png">
                             </c:if>

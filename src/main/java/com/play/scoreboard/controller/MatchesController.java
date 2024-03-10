@@ -1,10 +1,8 @@
 package com.play.scoreboard.controller;
 
-import com.play.scoreboard.HibernateUtil;
-import com.play.scoreboard.hibernateDAO.MatchDao;
-import com.play.scoreboard.models.Match;
-import com.play.scoreboard.servise.PlayerServise;
-import com.play.scoreboard.servise.SearchServiceForCompletedMatches;
+import com.play.scoreboard.match.models.Match;
+import com.play.scoreboard.player.service.PlayerService;
+import com.play.scoreboard.match.service.SearchForCompletedMatchesService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -21,8 +19,8 @@ public class MatchesController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PlayerServise playerServise = new PlayerServise();
-        SearchServiceForCompletedMatches complMatches = new SearchServiceForCompletedMatches();
+        PlayerService playerService = new PlayerService();
+        SearchForCompletedMatchesService complMatches = new SearchForCompletedMatchesService();
 
         String pageString = req.getParameter("page");
         String name = req.getParameter("filter_by_player_name");
@@ -69,7 +67,7 @@ public class MatchesController extends HttpServlet {
                     complMatches.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
         }
 
-        List<String> names = playerServise.getNames();
+        List<String> names = playerService.getNames();
 
         req.setAttribute("names", names);
         req.setAttribute("name", name);

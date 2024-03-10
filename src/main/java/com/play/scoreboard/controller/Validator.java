@@ -1,6 +1,6 @@
 package com.play.scoreboard.controller;
 
-import com.play.scoreboard.models.MatchScoreModel;
+import com.play.scoreboard.match.models.MatchScoreModel;
 
 public class Validator {
 
