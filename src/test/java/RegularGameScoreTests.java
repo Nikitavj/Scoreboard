@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class RegularGameScoreTests {
 
     @Test
-    public void fourPointsWinGame() {
+    public void fourPointsWinGameTest() {
         RegularGameScore score = new RegularGameScore();
 
         for (int i = 0; i < 3; i++) {
@@ -17,7 +17,7 @@ public class RegularGameScoreTests {
     }
 
     @Test
-    public void deucePointsWinGame() {
+    public void deucePointsWinGameTest() {
         RegularGameScore score = new RegularGameScore();
 
         //score is 40:40
