@@ -1,35 +1,16 @@
-CREATE TABLE Players
-(
-    id   INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR NOT NULL
-);
-CREATE INDEX ix_gamedb_name on PLAYERS (name);
+INSERT INTO players (name)
+VALUES ('Andy Murray'),
+       ('Andre Agassi'),
+       ('Pete Sampras'),
+       ('Bjorn Borg'),
+       ('Rafael Nadal'),
+       ('Ivan Lendl'),
+       ('Novak Djokovic'),
+       ('Roger Federer'),
+       ('Roy Emerson'),
+       ('Jimmy Connors');
 
-
-CREATE TABLE Matches
-(
-    id      INT AUTO_INCREMENT PRIMARY KEY,
-    Player1 INT,
-    Player2 INT,
-    Winner  INT,
-    FOREIGN KEY (Player1) REFERENCES PLAYERS (ID),
-    FOREIGN KEY (Player2) REFERENCES PLAYERS (ID),
-    FOREIGN KEY (Winner) REFERENCES PLAYERS (ID)
-);
-
-INSERT INTO Players (name)
-VALUES ('Igor Igorevich'),
-       ('Oleg Olegovich'),
-       ('Федор Александров'),
-       ('Uliana Smirnova'),
-       ('Elena Ivanova'),
-       ('Marta'),
-       ('Vladimir'),
-       ('Инокентий Ильин'),
-       ('Zhora Poddubni'),
-       ('Петр Петров');
-
-INSERT INTO Matches (player1, player2, winner)
+INSERT INTO matches (player1, player2, winner)
 VALUES (1, 2, 2),
        (2, 3, 3),
        (5, 6, 5),

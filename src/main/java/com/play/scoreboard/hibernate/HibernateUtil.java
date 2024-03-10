@@ -1,14 +1,46 @@
 package com.play.scoreboard.hibernate;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class HibernateUtil {
 
     private static SessionFactory sessionFactory;
+
+    static {
+        String sqlQuery;
+
+        try {
+            URL initSql = HibernateUtil.class.getClassLoader().getResource("init.sql");
+            Path path = Paths.get(initSql.toURI());
+            List<String> list = Files.readAllLines(path);
+            sqlQuery = String.join("", list);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (Session session = getSessionFactory().openSession()) {
+            session.beginTransaction();
+            session.createNativeQuery(sqlQuery, void.class).executeUpdate();
+        }
+    }
 
     public static SessionFactory getSessionFactory() {
 
@@ -17,7 +49,7 @@ public class HibernateUtil {
                     .configure()
                     .build();
             Metadata metadata = new MetadataSources(registry).buildMetadata();
-            sessionFactory =  metadata.buildSessionFactory();
+            sessionFactory = metadata.buildSessionFactory();
         }
 
         return sessionFactory;
