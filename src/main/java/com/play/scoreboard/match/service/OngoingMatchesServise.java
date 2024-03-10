@@ -4,10 +4,12 @@ import com.play.scoreboard.match.models.MatchScoreModel;
 import com.play.scoreboard.player.models.Player;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class OngoingMatchesServise {
-    private static HashMap<String, MatchScoreModel> matches = new HashMap<>();
+    private static Map<String, MatchScoreModel> matches = new ConcurrentHashMap<>();
 
     public MatchScoreModel startNewMatch(Player player1, Player player2) {
         String uuid = UUID.randomUUID().toString();
