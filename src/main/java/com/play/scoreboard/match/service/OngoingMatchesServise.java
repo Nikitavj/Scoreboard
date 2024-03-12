@@ -1,5 +1,7 @@
 package com.play.scoreboard.match.service;
 
+import com.play.scoreboard.exception.BadRequestException;
+import com.play.scoreboard.exception.NotFoundException;
 import com.play.scoreboard.match.models.MatchScoreModel;
 import com.play.scoreboard.player.models.Player;
 
@@ -21,9 +23,8 @@ public class OngoingMatchesServise {
     public MatchScoreModel get(String uuid) {
         MatchScoreModel match = matches.get(uuid);
         if (match == null) {
-            throw new RuntimeException("Матча с указанным uuid не существует");
+            throw new NotFoundException("Матча с указанным uuid не существует");
         }
-
         return match;
     }
 

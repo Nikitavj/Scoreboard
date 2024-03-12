@@ -1,7 +1,9 @@
 package com.play.scoreboard.player.dao;
 
+import com.play.scoreboard.exception.DatabaseException;
 import com.play.scoreboard.hibernate.BaseDAO;
 import com.play.scoreboard.player.models.Player;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -36,6 +38,8 @@ public class PlayerDAO extends BaseDAO<Player> implements PlayerHibernateDAO {
             session.getTransaction().commit();
 
             return Optional.ofNullable(player);
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
         }
     }
 
@@ -45,6 +49,8 @@ public class PlayerDAO extends BaseDAO<Player> implements PlayerHibernateDAO {
             List<String> names = session.createQuery("select name from Player", String.class).getResultList();
             session.getTransaction().commit();
             return names;
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
         }
     }
 

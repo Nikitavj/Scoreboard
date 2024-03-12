@@ -1,31 +1,35 @@
 package com.play.scoreboard.controller;
 
-import com.play.scoreboard.match.models.MatchScoreModel;
+import com.play.scoreboard.exception.BadRequestException;
 
 public class Validator {
-
+private static int MAX_SIZE_NAME = 20;
     public static void validName(String name) {
-        if (name == null || name.length() == 0 ) {
-            throw new RuntimeException("Отсутсвует игрок");
+        if (name == null || name.isBlank()) {
+            throw new BadRequestException("Отсутсвует имя игрока");
+        }
+        if (name.length() > MAX_SIZE_NAME) {
+            throw new BadRequestException("Имя игрока может содержать не более 20 символов");
         }
     }
 
     public static void validNames(String name1, String name2) {
+        validName(name1);
+        validName(name2);
         if (name1.equals(name2)) {
-            throw new RuntimeException("Введены два одинаковых имени");
+            throw new BadRequestException("Введены два одинаковых имени");
         }
     }
 
-    public static void validIdForMatch(Long idWin, MatchScoreModel match) {
-        if(idWin != match.getPlayer1().getId() &&
-                idWin != match.getPlayer2().getId()) {
-            throw new RuntimeException("Неверный ID игрока для текущего матча");
+    public static void validUuid(String uuid) {
+        if (uuid == null || uuid.isBlank()) {
+            throw new BadRequestException("Отсутствует значение параметра uuid");
         }
     }
 
-    public static void validPage(int page) {
-        if(page < 1) {
-            throw new RuntimeException("Номер страницы должен быть больше 0");
+    public static void validPage(String pageString) {
+        if (pageString == null || pageString.isBlank()) {
+            throw new BadRequestException("Отсутствует значение параметра page");
         }
     }
 }

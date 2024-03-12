@@ -1,10 +1,13 @@
 package com.play.scoreboard.match.dao;
 
+import com.play.scoreboard.exception.DatabaseException;
 import com.play.scoreboard.hibernate.BaseDAO;
 import com.play.scoreboard.match.models.Match;
 import jakarta.persistence.Query;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import java.util.List;
 
 public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
@@ -18,20 +21,22 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
 
     @Override
     public List<Match> findAll() {
-        try (Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             session.getTransaction().begin();
             List<Match> matches = session.createQuery("from Match", Match.class).getResultList();
             session.getTransaction().commit();
             return matches;
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
         }
     }
 
-    public List<Match>findByPage(int page, int size) {
-        try(Session session = factory.openSession()) {
+    public List<Match> findByPage(int page, int size) {
+        try (Session session = factory.openSession()) {
             session.getTransaction().begin();
 
             noOfRecords = session.createQuery("select count (id) from Match", Long.class).uniqueResult();
-            int pages = (int)Math.ceil(noOfRecords * 1.0 / size);
+            int pages = (int) Math.ceil(noOfRecords * 1.0 / size);
             if (page > pages) {
                 page = ++pages;
             }
@@ -43,6 +48,8 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
 
             session.getTransaction().commit();
             return matches;
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
         }
     }
 
@@ -52,16 +59,18 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
 
     @Override
     public Match findById(long id) {
-        try(Session session = factory.openSession()) {
+        try (Session session = factory.openSession()) {
             session.getTransaction().begin();
             Match match = session.get(Match.class, id);
             session.getTransaction().commit();
             return match;
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
         }
     }
 
     public List<Match> findByNamePlayer(String name, int page, int size) {
-        try(Session session = factory.openSession()) {
+        try (Session session = factory.openSession()) {
             session.getTransaction().begin();
 
             Query query1 = session.createQuery(
@@ -69,7 +78,7 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
             query1.setParameter("name", name);
             noOfRecords = (Long) query1.getResultList().get(0);
 
-            int pages = (int)Math.ceil(noOfRecords * 1.0 / size);
+            int pages = (int) Math.ceil(noOfRecords * 1.0 / size);
             if (page > pages) {
                 page = ++pages;
             }
@@ -81,6 +90,8 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
             List<Match> matchesOfPlayer = query.getResultList();
             session.getTransaction().commit();
             return matchesOfPlayer;
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
         }
     }
 

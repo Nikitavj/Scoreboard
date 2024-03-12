@@ -36,6 +36,8 @@ public abstract class BaseDAO<T extends EntityHibernate> implements HibernateDAO
             entity =  session.merge(entity);
             session.getTransaction().commit();
             return entity;
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
         }
     }
 }

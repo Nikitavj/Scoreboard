@@ -1,5 +1,8 @@
 package com.play.scoreboard.controller;
 
+import com.play.scoreboard.exception.BadRequestException;
+import com.play.scoreboard.exception.DatabaseException;
+import com.play.scoreboard.exception.NotFoundException;
 import com.play.scoreboard.match.service.FinishedMatchesPersistenceService;
 import com.play.scoreboard.match.service.MatchScoreCalculationServise;
 import com.play.scoreboard.match.models.MatchScoreModel;
@@ -14,6 +17,8 @@ import java.io.IOException;
 
 @WebServlet("/match-score")
 public class MatchScoreController extends HttpServlet {
+    MatchScoreCalculationServise calculationServise = new MatchScoreCalculationServise();
+    FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
     OngoingMatchesServise ongMatServ = new OngoingMatchesServise();
 
     @Override
@@ -21,30 +26,36 @@ public class MatchScoreController extends HttpServlet {
 
         try {
             String uuid = req.getParameter("uuid");
+            Validator.validUuid(uuid);
             MatchScoreModel match = ongMatServ.get(uuid);
 
             req.setAttribute("match", match);
             getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
 
-        } catch (RuntimeException e) {
+        } catch (BadRequestException e) {
             req.setAttribute("message", e.getMessage());
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+
+        } catch (NotFoundException e) {
+            req.setAttribute("message", e.getMessage());
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        MatchScoreCalculationServise calculationServise = new MatchScoreCalculationServise();
-        FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
-
         int winnerNumber = Integer.parseInt(
                 req.getParameter("winnerNumber")
                         .replaceAll("/", "")
         );
 
         try {
-            MatchScoreModel match = ongMatServ.get(req.getParameter("uuid"));
-            //Validator.validIdForMatch(idWin, match);
+            String uuid = req.getParameter("uuid");
+            Validator.validUuid(uuid);
+            MatchScoreModel match = ongMatServ.get(uuid);
+
             req.setAttribute("match", match);
             if (calculationServise.isFinished(match, winnerNumber)) {
                 persistenceService.save(match);
@@ -55,8 +66,20 @@ public class MatchScoreController extends HttpServlet {
             } else {
                 getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
             }
-        } catch (RuntimeException e) {
+
+        } catch (BadRequestException e) {
             req.setAttribute("message", e.getMessage());
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+
+        } catch (NotFoundException e) {
+            req.setAttribute("message", e.getMessage());
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+
+        } catch (DatabaseException e) {
+            req.setAttribute("message", e.getMessage());
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
         }
     }

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/style_index.css">
 <link rel="stylesheet" href="css/style_exception.css">
+<%request.setAttribute("code", response.getStatus());%>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +35,10 @@
         <nav class="nav-main">
             <div class="board">
                 <p>
-                <h2>${message}</h2>
+                <h2>
+                    Error: ${code} <br>
+                    ${message}
+                </h2>
                 </p>
             </div>
 

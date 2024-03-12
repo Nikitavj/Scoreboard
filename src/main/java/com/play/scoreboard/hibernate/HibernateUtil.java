@@ -1,5 +1,7 @@
 package com.play.scoreboard.hibernate;
 
+import com.play.scoreboard.exception.DatabaseException;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -31,14 +33,16 @@ public class HibernateUtil {
             List<String> list = Files.readAllLines(path);
             sqlQuery = String.join("", list);
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new DatabaseException(e);
         }
 
         try (Session session = getSessionFactory().openSession()) {
             session.beginTransaction();
             session.createNativeQuery(sqlQuery, void.class).executeUpdate();
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
         }
     }
 

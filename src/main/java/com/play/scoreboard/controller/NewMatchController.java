@@ -29,12 +29,8 @@ public class NewMatchController extends HttpServlet {
 
         try {
             Validator.validNames(name1, name2);
-//            PlayerService regServise = new PlayerService();
-//            var player1 = regServise.add(name1);
-//            var player2 = regServise.add(name2);
-
-            Player player1 = new Player(name1);
-            Player player2 = new Player(name2);
+            Player player1 = new Player(name1.trim());
+            Player player2 = new Player(name2.trim());
 
             MatchScoreModel match = new OngoingMatchesServise()
                     .startNewMatch(player1, player2);
