@@ -31,13 +31,15 @@ public class PlayerDAO extends BaseDAO<Player> implements PlayerHibernateDAO {
     public Optional<Player> findByName(String name) {
         try (Session session = factory.openSession()) {
             session.beginTransaction();
+
             Player player = session
                     .createQuery("from Player where name = :paramName", Player.class)
                     .setParameter("paramName", name)
                     .getSingleResultOrNull();
-            session.getTransaction().commit();
 
+            session.getTransaction().commit();
             return Optional.ofNullable(player);
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }
@@ -49,6 +51,7 @@ public class PlayerDAO extends BaseDAO<Player> implements PlayerHibernateDAO {
             List<String> names = session.createQuery("select name from Player", String.class).getResultList();
             session.getTransaction().commit();
             return names;
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }

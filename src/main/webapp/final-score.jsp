@@ -42,14 +42,14 @@
                 <div class="column">
                     <div class="title">Sets</div>
                     <div class="wind">
-                        <div class="win">1</div>
-                        <div class="win">1</div>
-                        <div class="win">1</div>
+                        <c:forEach items="${match.getPreviousSetPlayer(0)}" var="set">
+                            <div class="win">${set}</div>
+                        </c:forEach>
                     </div>
                     <div class="wind">
-                        <div class="win">2</div>
-                        <div class="win">2</div>
-                        <div class="win">2</div>
+                        <c:forEach items="${match.getPreviousSetPlayer(1)}" var="set">
+                            <div class="win">${set}</div>
+                        </c:forEach>
                     </div>
                 </div>
 

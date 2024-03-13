@@ -23,7 +23,11 @@ public class RegularSetScore extends Score<Integer> {
         State gameState;
 
         if (tiebreak) {
-            return tiebreakGame.pointWon(playerNumber);
+            gameState = tiebreakGame.pointWon(playerNumber);
+            if (gameState != State.ONGOING) {
+                setPlayerScore(playerNumber, getPlayerScore(playerNumber) + 1);
+            }
+            return gameState;
         } else {
             gameState = currentGame.pointWon(playerNumber);
             if (gameState == State.PLAYER_ONE_WON) {

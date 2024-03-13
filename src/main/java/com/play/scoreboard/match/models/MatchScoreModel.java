@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @NoArgsConstructor
 @Setter
 @Getter
@@ -57,5 +59,9 @@ public class MatchScoreModel {
 
     public boolean isTiebreak() {
         return score.getCurrentSet().isTiebreak();
+    }
+
+    public List getPreviousSetPlayer(int playerNumber) {
+        return score.getPrevSetForPlayer(playerNumber);
     }
 }

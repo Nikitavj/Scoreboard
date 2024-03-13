@@ -26,6 +26,7 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
             List<Match> matches = session.createQuery("from Match", Match.class).getResultList();
             session.getTransaction().commit();
             return matches;
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }
@@ -48,6 +49,7 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
 
             session.getTransaction().commit();
             return matches;
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }
@@ -64,6 +66,7 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
             Match match = session.get(Match.class, id);
             session.getTransaction().commit();
             return match;
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }
@@ -88,8 +91,10 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
             query.setFirstResult((page - 1) * size);
             query.setMaxResults(size);
             List<Match> matchesOfPlayer = query.getResultList();
+
             session.getTransaction().commit();
             return matchesOfPlayer;
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }

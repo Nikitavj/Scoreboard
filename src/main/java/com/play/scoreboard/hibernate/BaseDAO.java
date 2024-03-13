@@ -18,12 +18,11 @@ public abstract class BaseDAO<T extends EntityHibernate> implements HibernateDAO
 
     public long save(T entity) {
         try(Session session = factory.openSession()) {
-
             session.beginTransaction();
             session.persist(entity);
             session.getTransaction().commit();
-
             return entity.getId();
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }
@@ -36,6 +35,7 @@ public abstract class BaseDAO<T extends EntityHibernate> implements HibernateDAO
             entity =  session.merge(entity);
             session.getTransaction().commit();
             return entity;
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }

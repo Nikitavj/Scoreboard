@@ -1,5 +1,6 @@
 package com.play.scoreboard.controller;
 
+import com.play.scoreboard.exception.BadRequestException;
 import com.play.scoreboard.match.models.MatchScoreModel;
 import com.play.scoreboard.match.service.OngoingMatchesServise;
 import com.play.scoreboard.player.models.Player;
@@ -36,9 +37,13 @@ public class NewMatchController extends HttpServlet {
                     .startNewMatch(player1, player2);
 
             resp.sendRedirect("/match-score?uuid=" + match.getUuid());
-        } catch (RuntimeException e) {
+
+        } catch (BadRequestException e) {
             req.setAttribute("message", e.getMessage());
-            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            getServletContext().
+                    getRequestDispatcher("/exception.jsp").
+                    forward(req, resp);
         }
     }
 }

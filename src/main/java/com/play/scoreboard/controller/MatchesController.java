@@ -14,7 +14,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
 @WebServlet("/matches")
 public class MatchesController extends HttpServlet {
     PlayerService playerService = new PlayerService();
@@ -42,47 +41,53 @@ public class MatchesController extends HttpServlet {
                 name = name.trim();
             }
 
-            //все матчи, первая страница
-            if (pageString == null && name == null) {
-                matches = complMatchServise.getMatchesByPage(DEFAULT_PAGE, SIZE_ROWS_PAGE);
-                pages = (int) Math.ceil(
-                        complMatchServise.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
-            }
-            //конкретная страница с матчами
-            if (pageString != null && name == null) {
-                matches = complMatchServise.getMatchesByPage(page, SIZE_ROWS_PAGE);
-                pages = (int) Math.ceil(
-                        complMatchServise.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
-            }
-            //поиск только по имени, первая страница
-            if (pageString == null && name != null) {
-                matches = complMatchServise.getMatchesForName(name, DEFAULT_PAGE, SIZE_ROWS_PAGE);
-                pages = (int) Math.ceil(
-                        complMatchServise.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
-            }
-            //поиск по имени и по странице
-            if (pageString != null && name != null) {
-                matches = complMatchServise.getMatchesForName(name, page, SIZE_ROWS_PAGE);
-                pages = (int) Math.ceil(
-                        complMatchServise.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
+            if (pageString == null) {
+                if (name == null) {
+                    matches = complMatchServise.getMatchesByPage(
+                            DEFAULT_PAGE,
+                            SIZE_ROWS_PAGE);
+                } else {
+                    matches = complMatchServise.getMatchesForName(
+                            name,
+                            DEFAULT_PAGE,
+                            SIZE_ROWS_PAGE);
+                }
+            } else {
+                if (name == null) {
+                    matches = complMatchServise.getMatchesByPage(
+                            page,
+                            SIZE_ROWS_PAGE);
+                } else {
+                    matches = complMatchServise.getMatchesForName(
+                            name,
+                            page,
+                            SIZE_ROWS_PAGE);
+                }
             }
 
+            pages = (int) Math.ceil(complMatchServise.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
             names = playerService.getNames();
 
         } catch (BadRequestException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+            getServletContext().
+                    getRequestDispatcher("/exception.jsp").
+                    forward(req, resp);
 
         } catch (NumberFormatException e) {
             req.setAttribute("message", "Параметр page должен содержать только одно число");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+            getServletContext().
+                    getRequestDispatcher("/exception.jsp").
+                    forward(req, resp);
 
         } catch (DatabaseException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            getServletContext().getRequestDispatcher("/exception.jsp").forward(req, resp);
+            getServletContext().
+                    getRequestDispatcher("/exception.jsp").
+                    forward(req, resp);
         }
 
         req.setAttribute("name", name);
@@ -90,7 +95,9 @@ public class MatchesController extends HttpServlet {
         req.setAttribute("matches", matches);
         req.setAttribute("pages", pages);
         req.setAttribute("currentPage", page);
-        getServletContext().getRequestDispatcher("/matches.jsp").forward(req, resp);
+        getServletContext().
+                getRequestDispatcher("/matches.jsp").
+                forward(req, resp);
     }
 
 }

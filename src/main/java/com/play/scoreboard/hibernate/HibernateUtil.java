@@ -32,8 +32,10 @@ public class HibernateUtil {
             Path path = Paths.get(initSql.toURI());
             List<String> list = Files.readAllLines(path);
             sqlQuery = String.join("", list);
+
         } catch (URISyntaxException e) {
             throw new DatabaseException(e);
+
         } catch (IOException e) {
             throw new DatabaseException(e);
         }
@@ -41,6 +43,7 @@ public class HibernateUtil {
         try (Session session = getSessionFactory().openSession()) {
             session.beginTransaction();
             session.createNativeQuery(sqlQuery, void.class).executeUpdate();
+
         } catch (HibernateException e) {
             throw new DatabaseException(e);
         }

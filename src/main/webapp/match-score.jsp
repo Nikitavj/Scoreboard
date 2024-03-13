@@ -39,31 +39,17 @@
             <a class="headline-btn" href="index.html">Finish</a>
 
             <div class="board">
-<%--                <div class="column">--%>
-<%--                    <div class="title">Previous sets</div>--%>
-<%--                    <div class="wind">--%>
-<%--                        <div class="win">${match.getPrevSets(player1, 1)}</div>--%>
-<%--                        <div class="win">${match.getPrevSets(player1, 2)}</div>--%>
-<%--                        <div class="win">${match.getPrevSets(player1, 3)}</div>--%>
-<%--                    </div>--%>
-<%--                    <div class="wind">--%>
-<%--                        <div class="win">${match.getPrevSets(player2, 1)}</div>--%>
-<%--                        <div class="win">${match.getPrevSets(player2, 2)}</div>--%>
-<%--                        <div class="win">${match.getPrevSets(player2, 3)}</div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-
                 <div class="column">
                     <div class="title">Previous sets</div>
                     <div class="wind">
-                        <div class="win">0</div>
-                        <div class="win">0</div>
-                        <div class="win">0</div>
+                        <c:forEach items="${match.getPreviousSetPlayer(0)}" var="set">
+                        <div class="win">${set}</div>
+                            </c:forEach>
                     </div>
                     <div class="wind">
-                        <div class="win">0</div>
-                        <div class="win">0</div>
-                        <div class="win">0</div>
+                        <c:forEach items="${match.getPreviousSetPlayer(1)}" var="set">
+                            <div class="win">${set}</div>
+                        </c:forEach>
                     </div>
                 </div>
 
@@ -103,12 +89,6 @@
                         <div class="win">${match.getGamesPlayer(1)}</div>
                     </div>
                 </div>
-
-<%--                <c:if test="${match.isDeuce()}">--%>
-<%--                    <div class="tiebreak">--%>
-<%--                        <div class="tiebreak-text">Deuce</div>--%>
-<%--                    </div>--%>
-<%--                </c:if>--%>
 
                 <div class="column">
                     <div cclass="title">

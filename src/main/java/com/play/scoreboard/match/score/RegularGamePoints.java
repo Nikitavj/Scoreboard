@@ -1,7 +1,6 @@
 package com.play.scoreboard.match.score;
 
 public enum RegularGamePoints {
-
     ZERO,
     FIFTEEN,
     THIRTY,

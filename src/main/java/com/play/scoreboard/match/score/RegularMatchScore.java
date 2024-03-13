@@ -2,12 +2,17 @@ package com.play.scoreboard.match.score;
 
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public class RegularMatchScore extends Score<Integer>{
-    RegularSetScore currentSet;
+    private RegularSetScore currentSet;
+    private PreviousSetsScore previousSets;
+    private int counterSets = 0;
 
     public RegularMatchScore() {
         this.currentSet = new RegularSetScore();
+        this.previousSets = new PreviousSetsScore();
     }
 
     @Override
@@ -29,6 +34,9 @@ public class RegularMatchScore extends Score<Integer>{
     }
 
     public State setWon(int playerNumber) {
+        previousSets.addSet(counterSets, currentSet);
+        counterSets++;
+
         setPlayerScore(playerNumber, getPlayerScore(playerNumber) + 1);
         currentSet = new RegularSetScore();
 
@@ -38,5 +46,11 @@ public class RegularMatchScore extends Score<Integer>{
 
         return State.ONGOING;
     }
+
+    public List getPrevSetForPlayer(int playerNumber) {
+        return previousSets.getSet(playerNumber);
+    }
+
+
 }
 
