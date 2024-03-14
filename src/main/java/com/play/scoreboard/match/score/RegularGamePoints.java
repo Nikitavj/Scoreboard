@@ -10,6 +10,7 @@ public enum RegularGamePoints {
     public RegularGamePoints next() {
         if (this == ADVANTAGE) {
             throw new IllegalStateException("Cannot call next() on ADVANTAGE");
+
         } else {
             return RegularGamePoints.values()[this.ordinal() + 1];
         }

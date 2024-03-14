@@ -11,6 +11,7 @@ public class MatchScoreCalculationServise {
         if (matchState == State.PLAYER_ONE_WON) {
             match.setWinner(match.getPlayer1());
             return true;
+
         } else if (matchState == State.PLAYER_TWO_WON) {
             match.setWinner(match.getPlayer2());
             return true;

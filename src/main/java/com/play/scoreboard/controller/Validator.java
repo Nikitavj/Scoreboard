@@ -8,6 +8,7 @@ private static int MAX_SIZE_NAME = 20;
         if (name == null || name.isBlank()) {
             throw new BadRequestException("Отсутсвует имя игрока");
         }
+
         if (name.length() > MAX_SIZE_NAME) {
             throw new BadRequestException("Имя игрока может содержать не более 20 символов");
         }

@@ -28,10 +28,12 @@ public class RegularSetScore extends Score<Integer> {
                 setPlayerScore(playerNumber, getPlayerScore(playerNumber) + 1);
             }
             return gameState;
+
         } else {
             gameState = currentGame.pointWon(playerNumber);
             if (gameState == State.PLAYER_ONE_WON) {
                 return gameWon(0);
+
             } else if (gameState == State.PLAYER_TWO_WON) {
                 return gameWon(1);
             }
@@ -48,10 +50,12 @@ public class RegularSetScore extends Score<Integer> {
         if (playerScore == 6) {
             if (getOppositePlayerScore(playerNumber) <= 4) {
                 return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
+
             } else if (getOppositePlayerScore(playerNumber) == 6) {
                 tiebreak = true;
                 return State.ONGOING;
             }
+
         } else if (playerScore == 7 && getOppositePlayerScore(playerNumber) == 5) {
             return playerNumber == 0 ? State.PLAYER_ONE_WON : State.PLAYER_TWO_WON;
         }

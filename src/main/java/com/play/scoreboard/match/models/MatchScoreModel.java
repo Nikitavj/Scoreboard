@@ -61,7 +61,7 @@ public class MatchScoreModel {
         return score.getCurrentSet().isTiebreak();
     }
 
-    public List getPreviousSetPlayer(int playerNumber) {
+    public List<Integer> getPreviousSetPlayer(int playerNumber) {
         return score.getPrevSetForPlayer(playerNumber);
     }
 }

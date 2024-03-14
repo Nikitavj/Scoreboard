@@ -17,10 +17,7 @@ public class NewMatchController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        getServletContext()
-                .getRequestDispatcher("/new-match.html")
-                .forward(req, resp);
+        getServletContext().getRequestDispatcher("/new-match.html").forward(req, resp);
     }
 
     @Override
@@ -32,7 +29,6 @@ public class NewMatchController extends HttpServlet {
             Validator.validNames(name1, name2);
             Player player1 = new Player(name1.trim());
             Player player2 = new Player(name2.trim());
-
             MatchScoreModel match = new OngoingMatchesServise()
                     .startNewMatch(player1, player2);
 
@@ -41,9 +37,7 @@ public class NewMatchController extends HttpServlet {
         } catch (BadRequestException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
         }
     }
 }

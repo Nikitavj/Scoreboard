@@ -35,16 +35,12 @@ public class MatchScoreController extends HttpServlet {
         } catch (BadRequestException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (NotFoundException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
         }
     }
 
@@ -64,35 +60,26 @@ public class MatchScoreController extends HttpServlet {
             if (calculationServise.isFinished(match, winnerNumber)) {
                 persistenceService.save(match);
                 ongMatServ.remove(match.getUuid());
-                getServletContext()
-                        .getRequestDispatcher("/final-score.jsp")
-                        .forward(req, resp);
+                getServletContext().getRequestDispatcher("/final-score.jsp").forward(req, resp);
+
             } else {
-                getServletContext().
-                        getRequestDispatcher("/match-score.jsp").
-                        forward(req, resp);
+                getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
             }
 
         } catch (BadRequestException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (NotFoundException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (DatabaseException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
         }
     }
 }

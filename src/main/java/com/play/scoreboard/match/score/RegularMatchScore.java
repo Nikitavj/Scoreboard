@@ -26,6 +26,7 @@ public class RegularMatchScore extends Score<Integer>{
 
         if (gameState == State.PLAYER_ONE_WON) {
             return setWon(0);
+
         } else if (gameState == State.PLAYER_TWO_WON) {
             return setWon(1);
         }
@@ -47,8 +48,8 @@ public class RegularMatchScore extends Score<Integer>{
         return State.ONGOING;
     }
 
-    public List getPrevSetForPlayer(int playerNumber) {
-        return previousSets.getSet(playerNumber);
+    public List<Integer> getPrevSetForPlayer(int playerNumber) {
+        return previousSets.getSets(playerNumber);
     }
 
 

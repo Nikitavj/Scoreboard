@@ -20,6 +20,7 @@ public class FinishedMatchesPersistenceService {
         try {
             playerDAO.save(player1);
             match.setPlayer1(player1);
+
         } catch (EntityExistsException e) {
             match.setPlayer1(
                     playerDAO.findByName(player1.getName()).get());
@@ -28,13 +29,13 @@ public class FinishedMatchesPersistenceService {
         try {
             playerDAO.save(player2);
             match.setPlayer2(player2);
+
         } catch (EntityExistsException e) {
             match.setPlayer2(
                     playerDAO.findByName(player2.getName()).get());
         }
 
         match.setWinner(model.getWinner());
-
         return matchDAO.save(match);
     }
 }

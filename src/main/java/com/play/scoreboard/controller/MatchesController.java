@@ -71,23 +71,17 @@ public class MatchesController extends HttpServlet {
         } catch (BadRequestException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (NumberFormatException e) {
             req.setAttribute("message", "Параметр page должен содержать только одно число");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (DatabaseException e) {
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            getServletContext().
-                    getRequestDispatcher("/exception.jsp").
-                    forward(req, resp);
+            getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
         }
 
         req.setAttribute("name", name);
@@ -95,9 +89,7 @@ public class MatchesController extends HttpServlet {
         req.setAttribute("matches", matches);
         req.setAttribute("pages", pages);
         req.setAttribute("currentPage", page);
-        getServletContext().
-                getRequestDispatcher("/matches.jsp").
-                forward(req, resp);
+        getServletContext().getRequestDispatcher("/matches.jsp").forward(req, resp);
     }
 
 }

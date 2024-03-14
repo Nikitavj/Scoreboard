@@ -23,7 +23,6 @@ public class PlayerService {
     }
 
     public List<String> getNames() {
-
         return dao.getAllNames();
     }
 }

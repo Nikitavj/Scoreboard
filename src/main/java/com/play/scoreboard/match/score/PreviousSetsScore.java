@@ -15,7 +15,7 @@ public class PreviousSetsScore extends Score<ArrayList<Integer>>{
         getPlayerScore(1).set(setNumber, score.getPlayerScore(1));
     }
 
-    public List getSet(int playerNumber) {
+    public List<Integer> getSets(int playerNumber) {
         return getPlayerScore(playerNumber);
     }
 
