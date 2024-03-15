@@ -10,12 +10,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/matches")
 public class MatchesController extends HttpServlet {
+    private static final Logger log = LoggerFactory.getLogger(MatchesController.class);
     PlayerService playerService = new PlayerService();
     SearchForCompletedMatchesService complMatchServise = new SearchForCompletedMatchesService();
     private static final int DEFAULT_PAGE = 1;
@@ -32,11 +35,13 @@ public class MatchesController extends HttpServlet {
         String name = req.getParameter("filter_by_player_name");
         try {
             if (pageString != null) {
+                log.info("Parameters received: page = {}.", pageString);
                 Validator.validPage(pageString);
                 page = Integer.parseInt(pageString.trim());
             }
 
             if (name != null) {
+                log.info("Parameters received: name = {}.", name);
                 Validator.validName(name);
                 name = name.trim();
             }
@@ -69,16 +74,19 @@ public class MatchesController extends HttpServlet {
             names = playerService.getNames();
 
         } catch (BadRequestException e) {
+            log.warn("Exception in the valid method of Validator", e);
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (NumberFormatException e) {
+            log.warn("Page checking Exception in method Integer.parseInt.", e);
             req.setAttribute("message", "Параметр page должен содержать только одно число");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (DatabaseException e) {
+            log.warn("Exception in the method of SearchForCompletedMatchesService.", e);
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);

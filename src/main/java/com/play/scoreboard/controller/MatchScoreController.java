@@ -12,11 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 @WebServlet("/match-score")
 public class MatchScoreController extends HttpServlet {
+    private static final Logger log = LoggerFactory.getLogger(MatchScoreController.class);
     MatchScoreCalculationServise calculationServise = new MatchScoreCalculationServise();
     FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
     OngoingMatchesServise ongMatServ = new OngoingMatchesServise();
@@ -26,6 +29,7 @@ public class MatchScoreController extends HttpServlet {
 
         try {
             String uuid = req.getParameter("uuid");
+            log.info("Parameters received: uuid = {}.", uuid);
             Validator.validUuid(uuid);
             MatchScoreModel match = ongMatServ.get(uuid);
 
@@ -33,11 +37,13 @@ public class MatchScoreController extends HttpServlet {
             getServletContext().getRequestDispatcher("/match-score.jsp").forward(req, resp);
 
         } catch (BadRequestException e) {
+            log.warn("Exception in the validUuid method of Validator", e);
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (NotFoundException e) {
+            log.warn("Exception in the get method of OngoingMatchesServise.", e);
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
@@ -53,6 +59,7 @@ public class MatchScoreController extends HttpServlet {
 
         try {
             String uuid = req.getParameter("uuid");
+            log.info("Parameters received: winnerNumber = {}, uuid = {}", winnerNumber, uuid);
             Validator.validUuid(uuid);
             MatchScoreModel match = ongMatServ.get(uuid);
             req.setAttribute("match", match);
@@ -67,16 +74,19 @@ public class MatchScoreController extends HttpServlet {
             }
 
         } catch (BadRequestException e) {
+            log.warn("Exception in the validUuid method of Validator", e);
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (NotFoundException e) {
+            log.warn("Exception in the get method of OngoingMatchesServise.", e);
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);
 
         } catch (DatabaseException e) {
+            log.warn("Exception in the saving method of FinishedMatchesPersistenceService.", e);
             req.setAttribute("message", e.getMessage());
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             getServletContext().getRequestDispatcher("/error.jsp").forward(req, resp);

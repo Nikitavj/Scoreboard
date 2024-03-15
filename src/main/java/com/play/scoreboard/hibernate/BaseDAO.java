@@ -4,8 +4,11 @@ import com.play.scoreboard.exception.DatabaseException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class BaseDAO<T extends EntityHibernate> implements HibernateDAO<T> {
+    private static final Logger log = LoggerFactory.getLogger(BaseDAO.class);
     private final SessionFactory factory;
 
     protected BaseDAO(SessionFactory factory) {
@@ -24,6 +27,7 @@ public abstract class BaseDAO<T extends EntityHibernate> implements HibernateDAO
             return entity.getId();
 
         } catch (HibernateException e) {
+            log.warn("Exception in the save method of BaseDAO.", e);
             throw new DatabaseException(e);
         }
     }

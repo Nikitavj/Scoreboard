@@ -8,8 +8,11 @@ import com.play.scoreboard.player.dao.PlayerDAO;
 import com.play.scoreboard.player.models.Player;
 import jakarta.persistence.EntityExistsException;
 import org.hibernate.exception.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FinishedMatchesPersistenceService {
+    private static final Logger log = LoggerFactory.getLogger(FinishedMatchesPersistenceService.class);
     MatchDAO matchDAO = new MatchDAO(HibernateUtil.getSessionFactory());
     PlayerDAO playerDAO = new PlayerDAO(HibernateUtil.getSessionFactory());
     public long save(MatchScoreModel model) {
@@ -20,6 +23,7 @@ public class FinishedMatchesPersistenceService {
         try {
             playerDAO.save(player1);
             match.setPlayer1(player1);
+            log.info("Saved the {} object to database.", player1);
 
         } catch (EntityExistsException e) {
             match.setPlayer1(
@@ -29,6 +33,7 @@ public class FinishedMatchesPersistenceService {
         try {
             playerDAO.save(player2);
             match.setPlayer2(player2);
+            log.info("Saved the {} object to database.", player2);
 
         } catch (EntityExistsException e) {
             match.setPlayer2(
@@ -36,6 +41,7 @@ public class FinishedMatchesPersistenceService {
         }
 
         match.setWinner(model.getWinner());
+        log.info("Saved the {} object to database.", match);
         return matchDAO.save(match);
     }
 }
