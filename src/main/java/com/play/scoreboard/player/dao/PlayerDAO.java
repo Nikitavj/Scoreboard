@@ -48,7 +48,8 @@ public class PlayerDAO extends BaseDAO<Player> implements PlayerHibernateDAO {
     public List<String> getAllNames() {
         try (Session session = factory.openSession()) {
             session.getTransaction().begin();
-            List<String> names = session.createQuery("select name from Player", String.class).getResultList();
+            List<String> names = session.createQuery("select name from Player", String.class).
+                    getResultList();
             session.getTransaction().commit();
             return names;
 

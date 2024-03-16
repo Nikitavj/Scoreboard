@@ -20,9 +20,9 @@ import java.io.IOException;
 @WebServlet("/match-score")
 public class MatchScoreController extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(MatchScoreController.class);
-    MatchScoreCalculationServise calculationServise = new MatchScoreCalculationServise();
-    FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
-    OngoingMatchesServise ongMatServ = new OngoingMatchesServise();
+    private MatchScoreCalculationServise calculationServise = new MatchScoreCalculationServise();
+    private FinishedMatchesPersistenceService persistenceService = new FinishedMatchesPersistenceService();
+    private OngoingMatchesServise ongMatServ = new OngoingMatchesServise();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

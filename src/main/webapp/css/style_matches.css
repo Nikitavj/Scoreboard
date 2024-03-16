@@ -12,11 +12,6 @@
     width: 80%;
 }
 
-/*.table-div{*/
-/*    width: 900px;*/
-/*    overflow: scroll;*/
-/*}*/
-
 .match-buttons{
     display: flex;
     justify-content: space-between;

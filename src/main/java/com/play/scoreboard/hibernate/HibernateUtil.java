@@ -9,8 +9,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -18,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HibernateUtil {
 
@@ -28,7 +25,8 @@ public class HibernateUtil {
         String sqlQuery;
 
         try {
-            URL initSql = HibernateUtil.class.getClassLoader().getResource("init.sql");
+            URL initSql = HibernateUtil.class.getClassLoader().
+                    getResource("init.sql");
             Path path = Paths.get(initSql.toURI());
             List<String> list = Files.readAllLines(path);
             sqlQuery = String.join("", list);

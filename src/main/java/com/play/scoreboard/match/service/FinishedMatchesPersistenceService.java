@@ -12,9 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FinishedMatchesPersistenceService {
-    private static final Logger log = LoggerFactory.getLogger(FinishedMatchesPersistenceService.class);
+    private static final Logger log = LoggerFactory.
+            getLogger(FinishedMatchesPersistenceService.class);
     MatchDAO matchDAO = new MatchDAO(HibernateUtil.getSessionFactory());
     PlayerDAO playerDAO = new PlayerDAO(HibernateUtil.getSessionFactory());
+
     public long save(MatchScoreModel model) {
         Match match = new Match();
         Player player1 = model.getPlayer1();

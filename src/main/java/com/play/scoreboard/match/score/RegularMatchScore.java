@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class RegularMatchScore extends Score<Integer>{
+public class RegularMatchScore extends Score<Integer> {
     private RegularSetScore currentSet;
     private PreviousSetsScore previousSets;
     private int counterSets = 0;

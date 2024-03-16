@@ -23,7 +23,8 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
     public List<Match> findAll() {
         try (Session session = factory.openSession()) {
             session.getTransaction().begin();
-            List<Match> matches = session.createQuery("from Match", Match.class).getResultList();
+            List<Match> matches = session.createQuery("from Match", Match.class).
+                    getResultList();
             session.getTransaction().commit();
             return matches;
 
@@ -36,7 +37,8 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
         try (Session session = factory.openSession()) {
             session.getTransaction().begin();
 
-            noOfRecords = session.createQuery("select count (id) from Match", Long.class).uniqueResult();
+            noOfRecords = session.createQuery("select count (id) from Match", Long.class).
+                    uniqueResult();
             int pages = (int) Math.ceil(noOfRecords * 1.0 / size);
             if (page > pages) {
                 page = ++pages;
@@ -76,8 +78,10 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
         try (Session session = factory.openSession()) {
             session.getTransaction().begin();
 
-            Query query1 = session.createQuery(
-                    "select count (id) from Match where player1.name = :name or player2.name = :name", Long.class);
+            Query query1 = session.createQuery("""
+                    select count (id) from Match
+                    where player1.name = :name or player2.name = :name
+                    """, Long.class);
             query1.setParameter("name", name);
             noOfRecords = (Long) query1.getResultList().get(0);
 
@@ -86,7 +90,9 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
                 page = ++pages;
             }
 
-            Query query = session.createQuery("from Match where player1.name =:name or player2.name =:name", Match.class);
+            Query query = session.createQuery("""
+                    from Match where player1.name =:name or player2.name =:name
+                    """, Match.class);
             query.setParameter("name", name);
             query.setFirstResult((page - 1) * size);
             query.setMaxResults(size);

@@ -3,7 +3,6 @@ package com.play.scoreboard.player.service;
 import com.play.scoreboard.hibernate.HibernateUtil;
 import com.play.scoreboard.player.dao.PlayerDAO;
 import com.play.scoreboard.player.models.Player;
-
 import java.util.List;
 import java.util.Optional;
 

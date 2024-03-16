@@ -20,7 +20,7 @@ public abstract class BaseDAO<T extends EntityHibernate> implements HibernateDAO
     }
 
     public long save(T entity) {
-        try(Session session = factory.openSession()) {
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
             session.persist(entity);
             session.getTransaction().commit();
@@ -34,9 +34,9 @@ public abstract class BaseDAO<T extends EntityHibernate> implements HibernateDAO
 
     @Override
     public T update(T entity) {
-        try(Session session = factory.openSession()) {
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
-            entity =  session.merge(entity);
+            entity = session.merge(entity);
             session.getTransaction().commit();
             return entity;
 

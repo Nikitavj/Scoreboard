@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PreviousSetsScore extends Score<ArrayList<Integer>>{
+public class PreviousSetsScore extends Score<ArrayList<Integer>> {
     @Override
     protected ArrayList<Integer> getZeroScore() {
         return new ArrayList<Integer>(Arrays.asList(0, 0, 0));

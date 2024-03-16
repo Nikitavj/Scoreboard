@@ -3,7 +3,7 @@ package com.play.scoreboard.controller;
 import com.play.scoreboard.exception.BadRequestException;
 
 public class Validator {
-private static int MAX_SIZE_NAME = 20;
+private static final int MAX_SIZE_NAME = 20;
     public static void validName(String name) {
         if (name == null || name.isBlank()) {
             throw new BadRequestException("Отсутсвует имя игрока");

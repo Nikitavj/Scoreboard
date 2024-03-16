@@ -84,7 +84,6 @@
                                     </c:if>
                                         ${match.getPlayer2().getName()}
                                 </td>
-                                    <%--                                <td>${match.getWinner().getName()}</td>--%>
                             </tr>
                         </c:forEach>
                     </table>
@@ -130,10 +129,7 @@
                     </div>
                 </div>
             </div>
-
         </nav>
-
-
     </div>
 </main>
 

@@ -19,8 +19,8 @@ import java.util.List;
 @WebServlet("/matches")
 public class MatchesController extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(MatchesController.class);
-    PlayerService playerService = new PlayerService();
-    SearchForCompletedMatchesService complMatchServise = new SearchForCompletedMatchesService();
+    private PlayerService playerService = new PlayerService();
+    private SearchForCompletedMatchesService complMatchServise = new SearchForCompletedMatchesService();
     private static final int DEFAULT_PAGE = 1;
     private static final int SIZE_ROWS_PAGE = 5;
 

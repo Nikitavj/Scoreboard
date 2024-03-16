@@ -1,11 +1,9 @@
 package com.play.scoreboard.match.service;
 
-import com.play.scoreboard.exception.BadRequestException;
 import com.play.scoreboard.exception.NotFoundException;
 import com.play.scoreboard.match.models.MatchScoreModel;
 import com.play.scoreboard.player.models.Player;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

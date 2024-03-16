@@ -28,9 +28,13 @@ public class MatchScoreModel {
 
     public String getPointsPlayer(int playerNumber) {
         if (isTiebreak()) {
-            return String.valueOf(score.getCurrentSet().getTiebreakGame().getPlayerScore(playerNumber));
+            return String.valueOf(score.getCurrentSet().
+                    getTiebreakGame().
+                    getPlayerScore(playerNumber));
         } else {
-             RegularGamePoints point = score.getCurrentSet().getCurrentGame().getPlayerScore(playerNumber);
+            RegularGamePoints point = score.getCurrentSet().
+                    getCurrentGame().
+                    getPlayerScore(playerNumber);
 
             switch (point) {
                 case RegularGamePoints.ZERO:
