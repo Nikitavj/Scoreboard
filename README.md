@@ -6,7 +6,8 @@
 получения и поиска законченных матчей. В качестве базы данных для сохранения игроков и матчей используется H2 in-memory SQL база.
 Работа с которой реализована с помощью фреймворка Hibernate. Логига подсчета очков матча тестируется фрейворком JUnit 5.
 
-Подсчет очков реализован по правилам https://www.gotennis.ru/read/world_of_tennis/pravila.html
+Подсчет очков реализован по правилам https://www.gotennis.ru/read/world_of_tennis/pravila.html  
+Проект выполнен в соответствии ТЗ https://zhukovsd.github.io/java-backend-learning-course/Projects/TennisScoreboard/
 
 # Technologies / tools used:
 - Hibernate
@@ -17,6 +18,7 @@
 - HTML
 - CSS
 - JUnit 5
+- slf4j-log4j2
 
 # Installation
 1. Собрать c помощью Maven war артефакт приложения.
@@ -24,6 +26,7 @@
 
 # Usage
 ### 1. Главная страница.  
+  Адрес - /.  
 
   ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/6b1a31fb-0ff3-4f7e-8a31-f2f184f17663)
 
