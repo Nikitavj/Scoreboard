@@ -1,9 +1,12 @@
 package com.play.scoreboard.hibernate;
 
 import com.play.scoreboard.exception.DatabaseException;
+import com.play.scoreboard.exception.EntityDuplicationException;
+import jakarta.persistence.EntityExistsException;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +29,9 @@ public abstract class BaseDAO<T extends EntityHibernate> implements HibernateDAO
             session.getTransaction().commit();
             return entity.getId();
 
+        }catch (ConstraintViolationException e) {
+            log.warn("Exception in the save method of BaseDAO.", e);
+            throw new EntityDuplicationException(e.getMessage());
         } catch (HibernateException e) {
             log.warn("Exception in the save method of BaseDAO.", e);
             throw new DatabaseException(e);
