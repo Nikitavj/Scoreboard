@@ -41,7 +41,7 @@
    
   ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/75abef11-912a-449d-ad76-0bfa2f3f5d83)
 
-### 4. Результата законченного матча.
+### 4. Результат законченного матча.
 
   ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/4f14bd39-a3ea-42cf-90ae-108d85154cb6)
 
