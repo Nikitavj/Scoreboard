@@ -40,9 +40,8 @@
 
 ### 4. Результата законченного матча.
 
-  ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/4558ebfe-8eb6-45b7-aef7-16ef3955ca30)
+  ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/4f14bd39-a3ea-42cf-90ae-108d85154cb6)
 
-### 5. Страница законченных матчей.  
    Адрес - /matches?page=$page_number&filter_by_player_name=$player_name.  
    GET параметры:  
    + page - номер страницы. Если параметр не задан, подразумевается первая страница  
