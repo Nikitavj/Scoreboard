@@ -17,7 +17,11 @@ public class SearchForCompletedMatchesService {
         return dao.findByPage(page, sizePage);
     }
 
-    public Long getNoOfRecords() {
-        return dao.getNoOfRecords();
+    public Long getNoOfRecordsAll() {
+        return dao.getNoOfRecordsAll();
+    }
+
+    public Long getNoOfRecordsByPlayer(String name) {
+        return dao.getNoOfRecordsByPlayer(name);
     }
 }

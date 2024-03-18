@@ -12,7 +12,6 @@ import java.util.List;
 
 public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
     private final SessionFactory factory;
-    private Long noOfRecords;
 
     public MatchDAO(SessionFactory factory) {
         super(factory);
@@ -34,9 +33,7 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
     public List<Match> findByPage(int page, int size) {
         try (Session session = factory.openSession()) {
 
-            noOfRecords = session.createQuery("select count (id) from Match", Long.class).
-                    uniqueResult();
-            int pages = (int) Math.ceil(noOfRecords * 1.0 / size);
+            int pages = (int) Math.ceil(getNoOfRecordsAll() * 1.0 / size);
             if (page > pages) {
                 page = ++pages;
             }
@@ -53,32 +50,10 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
         }
     }
 
-    public Long getNoOfRecords() {
-        return noOfRecords;
-    }
-
-    @Override
-    public Match findById(long id) {
-        try (Session session = factory.openSession()) {
-            Match match = session.get(Match.class, id);
-            return match;
-
-        } catch (HibernateException e) {
-            throw new DatabaseException(e);
-        }
-    }
-
     public List<Match> findByNamePlayer(String name, int page, int size) {
         try (Session session = factory.openSession()) {
 
-            Query query1 = session.createQuery("""
-                    select count (id) from Match
-                    where player1.name = :name or player2.name = :name
-                    """, Long.class);
-            query1.setParameter("name", name);
-            noOfRecords = (Long) query1.getResultList().get(0);
-
-            int pages = (int) Math.ceil(noOfRecords * 1.0 / size);
+            int pages = (int) Math.ceil(getNoOfRecordsByPlayer(name) * 1.0 / size);
             if (page > pages) {
                 page = ++pages;
             }
@@ -92,6 +67,44 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
             List<Match> matchesOfPlayer = query.getResultList();
 
             return matchesOfPlayer;
+
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
+        }
+    }
+
+    @Override
+    public Match findById(long id) {
+        try (Session session = factory.openSession()) {
+            Match match = session.get(Match.class, id);
+            return match;
+
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
+        }
+    }
+
+    @Override
+    public Long getNoOfRecordsAll() {
+        try (Session session = factory.openSession()) {
+            return session.createQuery("select count (id) from Match", Long.class).
+                    uniqueResult();
+
+        } catch (HibernateException e) {
+            throw new DatabaseException(e);
+        }
+    }
+
+    @Override
+    public Long getNoOfRecordsByPlayer(String name) {
+        try (Session session = factory.openSession()) {
+
+            Query query1 = session.createQuery("""
+                    select count (id) from Match
+                    where player1.name = :name or player2.name = :name
+                    """, Long.class);
+            query1.setParameter("name", name);
+            return (Long) query1.getResultList().get(0);
 
         } catch (HibernateException e) {
             throw new DatabaseException(e);

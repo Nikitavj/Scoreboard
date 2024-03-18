@@ -70,7 +70,9 @@ public class MatchesController extends HttpServlet {
                 }
             }
 
-            pages = (int) Math.ceil(complMatchServise.getNoOfRecords() * 1.0 / SIZE_ROWS_PAGE);
+            pages = name != null ?
+                    (int) Math.ceil(complMatchServise.getNoOfRecordsByPlayer(name) * 1.0 / SIZE_ROWS_PAGE):
+                    (int) Math.ceil(complMatchServise.getNoOfRecordsAll() * 1.0 / SIZE_ROWS_PAGE);
             names = playerService.getNames();
 
         } catch (BadRequestException e) {
