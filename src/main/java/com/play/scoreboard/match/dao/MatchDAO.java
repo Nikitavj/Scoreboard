@@ -22,10 +22,8 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
     @Override
     public List<Match> findAll() {
         try (Session session = factory.openSession()) {
-            session.getTransaction().begin();
             List<Match> matches = session.createQuery("from Match", Match.class).
                     getResultList();
-            session.getTransaction().commit();
             return matches;
 
         } catch (HibernateException e) {
@@ -35,7 +33,6 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
 
     public List<Match> findByPage(int page, int size) {
         try (Session session = factory.openSession()) {
-            session.getTransaction().begin();
 
             noOfRecords = session.createQuery("select count (id) from Match", Long.class).
                     uniqueResult();
@@ -49,7 +46,6 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
             query.setMaxResults(size);
             List<Match> matches = query.getResultList();
 
-            session.getTransaction().commit();
             return matches;
 
         } catch (HibernateException e) {
@@ -64,9 +60,7 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
     @Override
     public Match findById(long id) {
         try (Session session = factory.openSession()) {
-            session.getTransaction().begin();
             Match match = session.get(Match.class, id);
-            session.getTransaction().commit();
             return match;
 
         } catch (HibernateException e) {
@@ -76,7 +70,6 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
 
     public List<Match> findByNamePlayer(String name, int page, int size) {
         try (Session session = factory.openSession()) {
-            session.getTransaction().begin();
 
             Query query1 = session.createQuery("""
                     select count (id) from Match
@@ -98,7 +91,6 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
             query.setMaxResults(size);
             List<Match> matchesOfPlayer = query.getResultList();
 
-            session.getTransaction().commit();
             return matchesOfPlayer;
 
         } catch (HibernateException e) {
