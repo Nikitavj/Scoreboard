@@ -1,12 +1,13 @@
 # Tennis scoreboard
 
 # Overview
-Проект представляет клиент-серверное приложене ведения счета теннисного матча с веб интерфейсом, которое реализовано в соответствии с архитектурным паттерном MVCS.
+Проект представляет клиент-серверное приложение ведения счета теннисного матча с веб интерфейсом, которое реализовано в соответствии с архитектурным паттерном MVCS.
 В качестве контроллеров для обработки запросов клиента используются Servlets. Которые в свою очередь пользуются сервисами для ведения счета, сохранения матчей,
 получения и поиска законченных матчей. В качестве базы данных для сохранения игроков и матчей используется H2 in-memory SQL база.
-Работа с которой реализована с помощью фреймворка Hibernate. Логига подсчета очков матча тестируется фрейворком JUnit 5.
+Работа с которой реализована с помощью фреймворка Hibernate. Логика подсчета очков матча тестируется фреймворком JUnit 5.
 
-Подсчет очков реализован по правилам https://www.gotennis.ru/read/world_of_tennis/pravila.html
+Подсчет очков реализован по правилам https://www.gotennis.ru/read/world_of_tennis/pravila.html  
+Проект выполнен в соответствии ТЗ https://zhukovsd.github.io/java-backend-learning-course/Projects/TennisScoreboard/
 
 # Technologies / tools used:
 - Hibernate
@@ -17,6 +18,7 @@
 - HTML
 - CSS
 - JUnit 5
+- slf4j-log4j2
 
 # Installation
 1. Собрать c помощью Maven war артефакт приложения.
@@ -24,6 +26,7 @@
 
 # Usage
 ### 1. Главная страница.  
+  Адрес - /.  
 
   ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/6b1a31fb-0ff3-4f7e-8a31-f2f184f17663)
 
@@ -38,11 +41,10 @@
    
   ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/75abef11-912a-449d-ad76-0bfa2f3f5d83)
 
-### 4. Результата законченного матча.
+### 4. Результат законченного матча.
 
-  ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/4558ebfe-8eb6-45b7-aef7-16ef3955ca30)
+  ![image](https://github.com/Nikitavj/Scoreboard/assets/134765675/4f14bd39-a3ea-42cf-90ae-108d85154cb6)
 
-### 5. Страница законченных матчей.  
    Адрес - /matches?page=$page_number&filter_by_player_name=$player_name.  
    GET параметры:  
    + page - номер страницы. Если параметр не задан, подразумевается первая страница  
