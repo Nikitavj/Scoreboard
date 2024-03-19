@@ -112,11 +112,12 @@ form {
         align-content: center;
     }
 
-    .players {
+    .orderPlayers {
         display: none;
     }
 
-    .players-div{
+    .orderPlayers-div{
+        display: flex;
         flex-direction: row-reverse;
     }
 }
