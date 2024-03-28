@@ -21,8 +21,8 @@ public class MatchDAO extends BaseDAO<Match> implements MatchHibernateDAO {
     @Override
     public List<Match> findAll() {
         try (Session session = factory.openSession()) {
-            List<Match> matches = session.createQuery("from Match", Match.class).
-                    getResultList();
+            List<Match> matches = session.createQuery("from Match", Match.class)
+                    .getResultList();
             return matches;
 
         } catch (HibernateException e) {
